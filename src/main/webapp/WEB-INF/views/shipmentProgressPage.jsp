@@ -5,26 +5,53 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Order List</title>
-<!-- Add Bootstrap CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-
-<!-- Add jQuery -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <link rel="stylesheet" type="text/css" href="./css/shipmentProgressPage.css">
 <link rel="stylesheet" type="text/css" href="./css/admin.css">
-
-
- 
     <script src="./js/shipmentProgressPage.js"></script>
 
-<!-- Add Bootstrap JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
 
 
 </head>
+<style>
+.popup {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 9999;
+}
+
+.popup-content {
+  background-color: #fff;
+  width: auto;
+  max-width: 80%;
+  padding: 20px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+</style>
 <body>
+<h1> Orders In Progress</h1>
 
 
+
+
+ <select id="OrderSorting" onchange="sortBy(this.value)">
+    <option>Sort By</option>
+    <option id="Price" value="Price">Price</option>
+    <option id="Order_ID" value="Order_ID">Order_ID</option>
+        <option id="order_date" value="Order_date">Order Date</option>
+    
+  </select>
 
 <div class="container mt-5">
     <table id="tableData" class="table table-bordered table-hover">
@@ -45,7 +72,7 @@
         <% for (orderModel order : orders) { 
             if (order.getOrdr_processedby() != null) { 
            %>
-                <tr>
+                <tr id="update-button" data-order-id="<%= order.getId() %>">
                     <td class="orderId" data-order-id="<%= order.getId() %>"><%= order.getId() %></td>
 
                     <td><%= order.getOrdr_cust_id() %></td>
@@ -55,7 +82,7 @@
                     <td><%= order.getGst() %></td>
                     <td><%= order.getShipmentDate() %></td>
                     <td>
-                        <button class="btn btn-success" id="update-button" data-bs-toggle="modal" data-bs-target="#updateModal" data-order-id="<%= order.getId() %>">Update</button>
+                        <button class="btn btn-success" id="update-button" data-order-id="<%= order.getId() %>">Update</button>
                     </td>
                 </tr>
         <% }}  %>
@@ -63,29 +90,57 @@
     </table>
 </div>
 
-<!-- Modal -->
-<div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-dialog-scrollable">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="updateModalLabel">Update Order Status</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div id="load-content" style="margin-right: 140px;">
-                    <button class="btn btn-success load-content-button">Load Content</button>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            </div>
+<!-- Simple Popup -->
+<div id="popup"  class="popup" style="display: none;">
+<div class="popup-content">
+    <h5>Update Order Status</h5>
+    <div id="load-content">
         </div>
+    <button class="btn btn-secondary close-button">Close</button>
     </div>
 </div>
 
-<!-- Add Bootstrap JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<script src="./js/shipmentProgressPage.js"></script>
+<script>
+	  var orderId = 0; // Default orderId value
 
+	  // Handle the click event of the "Update" button
+	  $(document).on('click', '#update-button', function() {
+	    orderId = $(this).data("order-id");
+	    console.log("update button " + orderId);
+	    loadOrderProductsContent(orderId);// Get the orderId from the clicked button
+	   // $('#popup').show();
+	  });
+
+	 // Handle the click event of the "Close" button
+	  $(document).on('click', '#popup .close-button', function() {
+	    $('#popup').hide();
+	  });
+
+	  function loadOrderProductsContent(orderId) {
+	    console.log("In viewing Order's Products specific to order ID: ", orderId);
+	    openPopup()	;    $.ajax({
+	      url: "displayProcessedOrderProductsToUpdateStatus",
+	      method: 'GET',
+	      data: {
+	        orderId: orderId
+	      }, // Pass the orderId as data
+	      success: function(response) {
+	        $('#load-content').html(response); // Set the response HTML as the inner HTML of the load-content div
+	      },
+	      error: function(xhr, status, error) {
+	        console.log('AJAX Error: ' + error);
+	      }
+	    });
+	  }
+	  function openPopup() {
+		  document.getElementById("popup").style.display = "block";
+		}
+
+		function closePopup() {
+		  document.getElementById("popup").style.display = "none";
+		}
+
+</script>
 </body>
 </html>
+

@@ -12,7 +12,8 @@
             url: "editAdminProfile",
             method: 'GET',
             success: function(response) {
-                $('#tableData').html(response); // Set the response HTML as the inner HTML of the select element
+                $('#content').html(response);  // Set the response HTML as the inner HTML of the select element
+                console.log('edit the details');
             },
             error: function(xhr, status, error) {
                 console.log('AJAX Error: ' + error);

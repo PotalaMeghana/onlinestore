@@ -1,7 +1,9 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="eStoreProduct.model.admin.entities.orderModel,java.util.*"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
+  <div id="tab">
 <head>
     <title>Order List</title>
     
@@ -14,8 +16,19 @@
 </head>
 <body>
 
+<div>
+        <label for="startDate">Start Date:</label>
+    <input type="date" id="startDate" name="startDate" onchange="setMinEndDate()">
+            <label for="endDate">End Date:</label>
+        <input type="date" id="endDate" name="endDate">
+        <button onclick="applyFilters()">Apply Filters</button>
+        
+    </div>
+  
 <%List<orderModel> orders=(List<orderModel>)request.getAttribute("orders");
-System.out.println("jello\n"+orders.get(0).getGst());%>
+if(orders.size()>0){
+//System.out.println("jello\n"+orders.get(0).getGst());%>
+
     <table>
         <thead>
             <tr>
@@ -67,5 +80,12 @@ System.out.println("jello\n"+orders.get(0).getGst());%>
             </tr>
         </tbody>
     </table>
+    <%}
+	else{%>
+		<p align="center">There are no orders in this time period</p>
+	<%}
+		%>
 </body>
+    </div>
+
 </html>

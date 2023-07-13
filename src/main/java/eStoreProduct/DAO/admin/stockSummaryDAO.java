@@ -23,5 +23,7 @@ public interface stockSummaryDAO {
 
 	public void updatePrice(int id, double mrp, double price);
 
+	List<stockSummaryModel> getCategoryWiseStocks(long catg);
+
 	// public List<stockSummaryModel> getCategoryWiseStocks(Integer ctg_id);
 }

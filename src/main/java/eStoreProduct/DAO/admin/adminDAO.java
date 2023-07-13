@@ -8,7 +8,5 @@ public interface adminDAO {
 
 	public void updateAdmin(adminModel am);
 
-	
-
-	adminModel updatePassword(String password, String email);
+	public void updatePassword(String newPassword, String email);
 }

@@ -11,6 +11,8 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import eStoreProduct.DAO.admin.CategoryDAO;
 import eStoreProduct.DAO.admin.stockSummaryDAO;
@@ -29,11 +31,27 @@ public class adminMasterEntryController {
 	private static final Logger logger = LoggerFactory.getLogger(adminMasterEntryController.class);
 
 	@Autowired
-	public
-	adminMasterEntryController(stockSummaryDAO stockdao, ProductDAO productdao, CategoryDAO categorydao) {
+
+	public adminMasterEntryController(stockSummaryDAO stockdao, ProductDAO productdao, CategoryDAO categorydao) {
 		ssd = stockdao;
 		pdaoimp = productdao;
 		cdaoimp = categorydao;
+	}
+
+	// get products categories list controller method
+	@GetMapping("/CategoriesDropdownListInAddNewProduct")
+	@ResponseBody
+	public String displayCategories(Model model) {
+
+		List<Category> categories = pdaoimp.getAllCategories();
+		StringBuilder htmlContent = new StringBuilder();
+		htmlContent.append("<option disabled selected>Select Product category</option>");
+		for (Category category : categories) {
+			htmlContent.append("<option value='").append(category.getPrct_id()).append("'>")
+					.append(category.getPrct_title()).append("</option>");
+		}
+
+		return htmlContent.toString();
 	}
 
 	// intially showing the admin all the products and its details only the editable is in textboxes
@@ -65,7 +83,7 @@ public class adminMasterEntryController {
 		List<stockSummaryModel> stocks1 = (List<stockSummaryModel>) ssd.getStocks();
 		System.out.println("enter updated price controller23");
 		model.addAttribute("stocks1", stocks1);
-		return "editablePrice";
+		return "updatedPrice";
 	}
 
 	// on clicking update retriveing data from textboxes and changing in db and returns the updated data back with ajax
@@ -97,7 +115,7 @@ public class adminMasterEntryController {
 	public String createProductNew(@Validated Product prod, Model model) {
 		logger.info("adminMasterEntryController  url:createNewProduct  returns:AddedProduct.jsp ");
 
-		System.out.print("craeting newww product\n");
+		System.out.print("creating newww product\n");
 		pdaoimp.createProduct(prod);
 		System.out.print("created\n");
 		return "AddedProduct";
@@ -115,11 +133,23 @@ public class adminMasterEntryController {
 
 	// based on the details enrered in the form creating new category in the db
 	@RequestMapping(value = "/createNewCategory", method = RequestMethod.POST)
-	public String createProductNew(@Validated Category catg, Model model) {
+	public String createCategoryNew(@Validated Category catg, Model model) {
 		logger.info("adminMasterEntryController  url:createNewCategory  returns:AddedCategory.jsp ");
 
 		cdaoimp.addNewCategory(catg);
 		return "AddedCategory";
 
+	}
+
+	@GetMapping("/CategorySpecificRecordsForPriceReview")
+	public String getCategorySpecificRecords(Model model, @RequestParam(value = "catg") long categoryId,
+			@RequestParam(defaultValue = "0") int page) {
+		List<stockSummaryModel> stocks1 = ssd.getCategoryWiseStocks(categoryId);
+		for (stockSummaryModel s : stocks1) {
+			System.out.println(s + "\n\n\n");
+		}
+		model.addAttribute("page", page);
+		model.addAttribute("stocks1", stocks1);
+		return "updatedPrice"; // Return the name of a new view file that will render only the table data
 	}
 }

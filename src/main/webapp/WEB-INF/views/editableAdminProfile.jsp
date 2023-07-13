@@ -40,9 +40,10 @@
                     <input id="adminRole" type="text" class="form-control" name="designation" value="<%= adminRole %>" >
                 </p>
                 
-               <%--  <p class="card-text">Password:
-                    <input id="adminPassword" type="text" class="form-control" name="password" value="<%= password %>" >
-                </p> --%>
+               <p class="card-text ">Password:
+    <input id="adminPassword" type="password" class="form-control" name="password" value="<%= password %>">
+</p>
+
                 
             </div>
         </div>

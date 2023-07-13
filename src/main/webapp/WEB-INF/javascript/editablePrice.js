@@ -1,3 +1,46 @@
+
+ function showCategoriesCatalog(){
+	 //showSpinner();
+		 $.ajax({
+			 url: "CategoriesDropdownList",
+		        method: 'GET',
+		        success: function(response) {
+		           // //hideSpinner();
+		            $('#categoryDropdown').html(response);
+		            console.log('Categories are brought');
+		          
+		        },
+		        error: function(xhr, status, error) {
+		            console.log('AJAX Error: ' + error);
+		        }
+		 });
+	 }
+	
+	 $(document).on('change', '#categoryDropdown', function(event) {
+		    event.preventDefault();
+		    var catg=document.getElementById("categoryDropdown").value;
+		   console.log("selected categoryyyyyy"+ catg);
+		   retriveCategorySpecificRecords(catg);
+		    
+	    });
+
+function retriveCategorySpecificRecords(catg) {
+  $.ajax({
+    url: "CategorySpecificRecordsForPriceReview",
+    method: "GET",
+    data: { catg: catg },
+    success: function(response) {
+      $('#content').html(response);
+      showCategoriesCatalog();
+    },
+    error: function(xhr, status, error) {
+      console.log('AJAX Error: ' + error);
+    }
+  });
+}
+
+
+
 $(document).ready(function() {
   $(document).on('click', '#editprice-button', function(event) {
     event.preventDefault();

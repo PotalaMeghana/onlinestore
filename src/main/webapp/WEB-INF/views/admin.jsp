@@ -21,7 +21,7 @@
   <div id="spinner"></div>
 </div>
     <div class="dashboard" id="dashboard">
-        <h2>Dashboard</h2>
+        <h2 >Dashboard</h2>
         <ul>
         <li class="dropdown">
             <a href="#" class="dropdown-toggle " onclick="toggleDropdown_profile()" style="text-decoration:none;">profile</a>
@@ -66,7 +66,7 @@
         </li>
         	 <li onclick="toggleMenu()"><a href="#" class="GST-Report" style="text-decoration:none;">GST Report</a></li>
         <li onclick="toggleMenu()"><a href="#" class="CAT-Report" style="text-decoration:none;">Category wise Report</a></li>
-            <li><a href="#" style="text-decoration:none;">Logout</a></li>
+            <li><a href="adminLogout" style="text-decoration:none;">Logout</a></li>
         </ul>
     </div>
     

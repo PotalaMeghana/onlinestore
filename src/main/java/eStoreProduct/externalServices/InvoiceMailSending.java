@@ -36,7 +36,6 @@ import com.itextpdf.html2pdf.HtmlConverter;
 import eStoreProduct.DAO.admin.EmailConfigDAO;
 import eStoreProduct.model.admin.entities.EmailConfigModel;
 import eStoreProduct.model.admin.entities.orderModel;
-
 @Component
 public class InvoiceMailSending {
 	private EmailConfigDAO emailConfig;
@@ -55,7 +54,7 @@ public class InvoiceMailSending {
 		request.setAttribute("ordermodel", ordermodel);
 		EmailConfigModel emailConfigModel = emailConfig.getEmail();
 		String adminEmail = emailConfigModel.getEmail();
-		String adminPassword = emailConfigModel.getPwd();
+	    String adminPassword = emailConfigModel.getPwd();
 
 		// Render JSP
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/views/" + viewName + ".jsp");
@@ -69,7 +68,10 @@ public class InvoiceMailSending {
 		requestDispatcher.include(request, responseWrapper);
 		String renderedHtml = stringWriter.toString();
 
-		 OutputStream file = new FileOutputStream(new File("Invoice.pdf"));
+		String filePath = "C:/MyApp/invoice.pdf";
+		OutputStream file = new FileOutputStream(new File(filePath));
+
+		//OutputStream file = new FileOutputStream(new File("C:/Invoice.pdf"));
 		ConverterProperties converterProperties = new ConverterProperties();
 		HtmlConverter.convertToPdf(renderedHtml, file, converterProperties);
 
@@ -80,7 +82,7 @@ public class InvoiceMailSending {
 		p.put("mail.smtp.port", "587");
 		Session s = Session.getInstance(p, new Authenticator() {
 			protected PasswordAuthentication getPasswordAuthentication() {
-				return new PasswordAuthentication(adminEmail,adminPassword);
+				return new PasswordAuthentication(adminEmail, adminPassword);
 			}
 		});
 		try {
@@ -98,7 +100,7 @@ public class InvoiceMailSending {
 			multipart.addBodyPart(messageBodyPart);
 
 			messageBodyPart = new MimeBodyPart();
-			String filename = "invoice.pdf";
+			String filename = "C:/MyApp/invoice.pdf";
 			DataSource source = new FileDataSource(filename);
 			messageBodyPart.setDataHandler(new DataHandler(source));
 			messageBodyPart.setFileName(filename);

@@ -65,4 +65,15 @@ public class adminController {
 		return "admin";
 	}
 
+	//to get login page 
+		@RequestMapping(value = "/adminLogout", method = RequestMethod.GET)
+		public String logout(Model model, HttpSession session) {
+			logger.info("adminController: logout : adminSignIn.jsp ");
+			logger.info("to get login page ");
+			System.out.println("logout Page");
+			session.removeAttribute("admin");
+			// call the view
+			return "adminSignIn";
+		}
+	
 }

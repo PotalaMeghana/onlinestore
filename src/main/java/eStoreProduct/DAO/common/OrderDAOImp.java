@@ -1,6 +1,7 @@
 package eStoreProduct.DAO.common;
 
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -37,7 +38,7 @@ public class OrderDAOImp implements OrderDAO {
 		Root<orderModel> root = criteriaQuery.from(orderModel.class);
 
 		criteriaQuery.select(root);
-		criteriaQuery.orderBy(criteriaBuilder.desc(root.get("id"))); // Ordering by orderDate in descending order
+		criteriaQuery.orderBy(criteriaBuilder.desc(root.get("orderDate"))); // Ordering by orderDate in descending order
 
 		TypedQuery<orderModel> query = currentSession.createQuery(criteriaQuery);
 		return query.getResultList();
@@ -64,7 +65,7 @@ public class OrderDAOImp implements OrderDAO {
 		CriteriaQuery<orderModel> criteriaQuery = criteriaBuilder.createQuery(orderModel.class);
 		Root<orderModel> root = criteriaQuery.from(orderModel.class);
 		criteriaQuery.select(root);
-		criteriaQuery.orderBy(criteriaBuilder.desc(root.get("id"))); // Ordering by orderDate in descending order
+		criteriaQuery.orderBy(criteriaBuilder.desc(root.get("orderDate"))); // Ordering by orderDate in descending order
 
 		TypedQuery<orderModel> query = currentSession.createQuery(criteriaQuery);
 		query.setFirstResult(page * pageSize);
@@ -111,7 +112,7 @@ public class OrderDAOImp implements OrderDAO {
 		CriteriaQuery<orderModel> criteriaQuery = criteriaBuilder.createQuery(orderModel.class);
 		Root<orderModel> root = criteriaQuery.from(orderModel.class);
 		criteriaQuery.select(root);
-		criteriaQuery.where(criteriaBuilder.between(root.get("id"), startDate, endDate));
+		criteriaQuery.where(criteriaBuilder.between(root.get("orderDate"), startDate, endDate));
 
 		TypedQuery<orderModel> query = currentSession.createQuery(criteriaQuery);
 		return query.getResultList();
@@ -158,7 +159,7 @@ public class OrderDAOImp implements OrderDAO {
 		criteriaQuery.select(root);
 		criteriaQuery.where(criteriaBuilder.isNull(root.get("ordr_processedby"))); // Add the condition to check for
 																					// null
-		criteriaQuery.orderBy(criteriaBuilder.desc(root.get("id"))); // Ordering by orderDate in descending order
+		criteriaQuery.orderBy(criteriaBuilder.desc(root.get("orderDate"))); // Ordering by orderDate in descending order
 
 		TypedQuery<orderModel> query = currentSession.createQuery(criteriaQuery);
 		query.setFirstResult(page * pageSize);
@@ -176,7 +177,8 @@ public class OrderDAOImp implements OrderDAO {
 		Root<orderModel> root = criteriaQuery.from(orderModel.class);
 		criteriaQuery.select(criteriaBuilder.count(root));
 		criteriaQuery.where(criteriaBuilder.isNotNull(root.get("ordr_processedby"))); // Add the condition to check for
-		
+																						// null
+
 		TypedQuery<Long> query = currentSession.createQuery(criteriaQuery);
 		return query.getSingleResult();
 	}
@@ -191,7 +193,7 @@ public class OrderDAOImp implements OrderDAO {
 		criteriaQuery.select(root);
 		criteriaQuery.where(criteriaBuilder.isNotNull(root.get("ordr_processedby"))); // Add the condition to check for
 																						// null
-		criteriaQuery.orderBy(criteriaBuilder.desc(root.get("id"))); // Ordering by orderDate in descending order
+		criteriaQuery.orderBy(criteriaBuilder.desc(root.get("orderDate"))); // Ordering by orderDate in descending order
 
 		TypedQuery<orderModel> query = currentSession.createQuery(criteriaQuery);
 		query.setFirstResult(page * pageSize);
@@ -200,4 +202,51 @@ public class OrderDAOImp implements OrderDAO {
 		return query.getResultList();
 	}
 
+	@Override
+	@Transactional
+	public List<orderModel> getOrdersByDate(Date startDate, Date endDate, int page, int pageSize) {
+	    // Calculate the offset based on the page and pageSize
+	    int offset = page * pageSize;
+	    
+	    // Create a CriteriaBuilder
+	    CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+	    
+	    // Create a CriteriaQuery for the orderModel class
+	    CriteriaQuery<orderModel> query = cb.createQuery(orderModel.class);
+	    
+	    // Create the root entity and join necessary associations
+	    Root<orderModel> root = query.from(orderModel.class);
+	    
+	    // Add a WHERE clause to filter orders by date
+	    query.where(cb.between(root.get("orderDate"), startDate, endDate));
+	    
+	    // Set the ordering of the query results
+	    query.orderBy(cb.asc(root.get("orderDate")));
+	    
+	    // Create a TypedQuery with the query and set the offset and pageSize
+	    TypedQuery<orderModel> typedQuery = entityManager.createQuery(query);
+	    typedQuery.setFirstResult(offset);
+	    typedQuery.setMaxResults(pageSize);
+	    
+	    // Execute the query and return the results
+	    return typedQuery.getResultList();
+	}
+
+	@Override
+	@Transactional
+	public double getTotalOrdersByDate(Date startDate, Date endDate) {
+	    Session currentSession = entityManager.unwrap(Session.class);
+	    CriteriaBuilder criteriaBuilder = currentSession.getCriteriaBuilder();
+	    CriteriaQuery<Long> criteriaQuery = criteriaBuilder.createQuery(Long.class);
+	    Root<orderModel> root = criteriaQuery.from(orderModel.class);
+	    criteriaQuery.select(criteriaBuilder.count(root));
+	    criteriaQuery.where(criteriaBuilder.between(root.get("orderDate"), startDate, endDate));
+
+	    TypedQuery<Long> query = currentSession.createQuery(criteriaQuery);
+	    Long count = query.getSingleResult();
+	    return count.doubleValue();
+	}
+
+
+	
 }

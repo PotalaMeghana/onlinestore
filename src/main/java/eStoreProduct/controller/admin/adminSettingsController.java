@@ -17,6 +17,7 @@ import eStoreProduct.DAO.admin.EmailConfigDAO;
 import eStoreProduct.DAO.admin.OrderValueWiseShippingChargeDAO;
 import eStoreProduct.DAO.admin.RegionDAO;
 import eStoreProduct.DAO.admin.adminDAO;
+// import eStoreProduct.model.ProductShip;
 import eStoreProduct.model.admin.entities.EmailConfigModel;
 import eStoreProduct.model.admin.input.OrderValueWiseShippingChargesInput;
 import eStoreProduct.model.admin.input.Regions;
@@ -42,77 +43,85 @@ public class adminSettingsController {
 
 	}
 
-	// Add a region
 	@RequestMapping(value = "/addRegion", method = RequestMethod.POST)
 	@ResponseBody
 	public String addRegion(@Validated Regions reg, Model model) {
-		logger.info("adminSettingsController url: addRegion returns: DONE");
+		logger.info("adminSettingsController  url: addRegion  returns: DONE ");
+
+		System.out.println("Admin Page");
 		redao.addRegion(reg);
-		// Return response
+		// call the view
 		return "DONE";
 	}
 
-	// Remove a region
 	@RequestMapping(value = "/remRegion", method = RequestMethod.POST)
 	@ResponseBody
 	public String addRegion(@RequestParam("regionId") String id, Model model) {
-		logger.info("adminSettingsController url: remRegion returns: DONE");
+		logger.info("adminSettingsController  url: remRegion  returns: DONE ");
+
+		System.out.println("Admin Page");
 		int Id = Integer.parseInt(id);
 		redao.removeRegion(Id);
-		// Return response
+		// call the view
 		return "DONE";
 	}
 
-
-	// Redirect to shipping configuration page
 	@RequestMapping(value = "/ShippingRedirect", method = RequestMethod.GET)
 	public String shippingRedirect(Model model) {
-		logger.info("adminSettingsController url: ShippingRedirect returns: regions.jsp");
+		logger.info("adminSettingsController  url: ShippingRedirect  returns: DONE ");
+
+		System.out.println("shippingRedirect");
 		List<RegionsOutput> regionList = redao.getRegions();
+		System.out.println("shippingRedirect1");
 		model.addAttribute("regionList", regionList);
-		// Call the view
+		System.out.println("shippingRedirect2");
+
+		// call the view
 		return "regions";
 	}
 
-	// Update email configuration
 	@RequestMapping(value = "/EmailConfiguration", method = RequestMethod.POST)
 	@ResponseBody
 	public String emailConfiguration(@Validated EmailConfigModel ecm, Model model) {
-		logger.info("adminSettingsController url: EmailConfiguration returns: done");
+		System.out.println("emailConfiguration");
+
 		edao.changeEmail(ecm);
 		return "done";
 	}
 
-	// Return email configuration page
 	@RequestMapping(value = "/EmailConfigurationPage", method = RequestMethod.GET)
 	public String returnpage(Model model) {
-		logger.info("adminSettingsController url: EmailConfigurationPage returns: emailConfig.jsp");
+		System.out.println("emailConfigurationpage");
+		// EmailConfigDAO edao=new EmailConfigDAOImpl();
+		// call the view
 		return "emailConfig";
 	}
 
-	// Return order value-wise shipping charges page
 	@RequestMapping(value = "/OrderValueWisePage", method = RequestMethod.GET)
 	public String OrderValueWisePage(Model model) {
-		logger.info("adminSettingsController url: OrderValueWisePage returns: OrderValueWisePage.jsp");
+		System.out.println("OrderValueWisePage");
 		List<OrderValueWiseShippingCharge> ocl = owsc.getAll();
+		System.out.println("OrderValueWisePage");
 		model.addAttribute("chargeList", ocl);
-		// Call the view
+		System.out.println("OrderValueWisePage");
+
+		// call the view
 		return "OrderValueWisePage";
 	}
 
-	// Update order value-wise shipping charge
 	@RequestMapping(value = "/updateCharge", method = RequestMethod.POST)
 	@ResponseBody
 	public boolean updateCharge(@Validated OrderValueWiseShippingChargesInput osw, Model model) {
-		// Return response
+
+		// call the view
 		return owsc.updateCharge(osw);
 	}
 
-	// Add order value-wise shipping charge
 	@RequestMapping(value = "/addCharge", method = RequestMethod.POST)
 	@ResponseBody
 	public boolean addCharge(@Validated OrderValueWiseShippingChargesInput osw, Model model) {
-		// Return response
+
+		// call the view
 		return owsc.addCharge(osw);
 	}
 

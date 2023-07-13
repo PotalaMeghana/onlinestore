@@ -25,6 +25,27 @@
     event.preventDefault();
     clear();
     });
+    
+    function showCategoriesCatalog(){
+   	 //showSpinner();
+   		 $.ajax({
+   			 url: "CategoriesDropdownListInAddNewProduct",
+   		        method: 'GET',
+   		        success: function(response) {
+   		           // //hideSpinner();
+   		            $('#categoryDropdown').html(response);
+   		            console.log('Categories are brought');
+   		          
+   		        },
+   		        error: function(xhr, status, error) {
+   		            console.log('AJAX Error: ' + error);
+   		        }
+   		 });
+   	 }
+   	
+   
+
+    
     </script>
    
 </head>

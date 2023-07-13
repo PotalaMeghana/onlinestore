@@ -10,11 +10,11 @@ import eStoreProduct.DAO.admin.ProdStockDAO;
 import eStoreProduct.utility.ProductStockPriceForCust;
 
 @Component
-public class ProductRowMapper implements RowMapper<ProductStockPriceForCust> {
+public class ProductRowMapperForCust implements RowMapper<ProductStockPriceForCust> {
 
 	private ProdStockDAO prodStockDAO;
 
-	public ProductRowMapper(ProdStockDAO prodStockDAO) {
+	public ProductRowMapperForCust(ProdStockDAO prodStockDAO) {
 		this.prodStockDAO = prodStockDAO;
 	}
 

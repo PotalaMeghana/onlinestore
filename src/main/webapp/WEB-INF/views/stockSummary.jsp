@@ -7,29 +7,18 @@
 <meta charset="ISO-8859-1">
 <title>Stock Summary</title>
 <link rel="stylesheet" type="text/css" href="./css/stocksummary.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
 </head>
-<script>
-
-
-$(document).on('change', '#categoryDropdown', function(event) {
-    event.preventDefault();
-    var ctg_id = document.getElementById("categoryDropdown").value;
-    console.log(ctg_id);
-});
-</script>
 <body>
-
-<div class="container mt-5">
- <button id="viewStatisticsBtn" class="btn btn-primary">View Statistics</button>
- <div class="container mt-5">
-            <div class="text-left mb-3">
-                <select   id="categoryDropdown" class="form-control">
-                    <!-- Options for categories -->
-                </select>
-            </div>
-        </div>
+  <div class="container mt-5">
+    <button id="viewStatisticsBtn" class="btn btn-primary">View Statistics</button>
+    <div class="container mt-5">
+      <div class="text-left mb-3">
+        <select id="categoryDropdown" class="form-control">
+          <!-- Options for categories -->
+        </select>
+      </div>
+    </div>
     <table id="tableData" class="table table-bordered table-hover">
         <thead class="thead-dark">
             <tr>
@@ -99,34 +88,31 @@ $(document).on('change', '#categoryDropdown', function(event) {
 </div>
 
 
-
-
-  <div id="statisticsModal" class="modal fade" tabindex="-1" role="dialog">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Product Statistics</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <canvas id="stockHistogramChart" width="400" height="200"></canvas>
-        <canvas id="reorderLevelHistogramChart" width="400" height="200"></canvas>
-        <canvas id="diffChart" width="400" height="200"></canvas>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+   <div id="statisticsModal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Product Statistics</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <canvas id="stockHistogramChart" width="400" height="200"></canvas>
+          <canvas id="reorderLevelHistogramChart" width="400" height="200"></canvas>
+          <canvas id="diffChart" width="400" height="200"></canvas>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0"></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<script src="./js/stockSummary.js"></script>
-
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="./js/stockSummary.js"></script>
 
 
 </body>

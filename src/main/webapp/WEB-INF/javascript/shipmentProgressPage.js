@@ -35,4 +35,24 @@ $(document).on('click', '#updateModal .btn-secondary', function () {
                 }
             });
         }
+          $(document).on('click', '.load-content-button', function (event) {
+            event.preventDefault();
+            console.log("Open orderedProducts specific to that order-id: ", orderId);
+            loadOrderProductsContent(orderId);
+        });
     });
+function sortBy(filter){
+	 $.ajax({
+	      url: "ShipmentsFilter",
+	      method: 'POST',
+	      data:{
+	    	 filterVal:filter
+	      },
+	      success: function(response) {
+	      $('#content').html(response); 
+	      },
+	      error: function(xhr, status, error) {
+	        console.log('AJAX Error: ' + error);
+	      }
+	    }); 
+}

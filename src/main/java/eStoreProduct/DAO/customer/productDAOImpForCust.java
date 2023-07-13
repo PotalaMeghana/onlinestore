@@ -18,7 +18,7 @@ import org.springframework.stereotype.Component;
 import eStoreProduct.model.customer.input.Category;
 import eStoreProduct.model.customer.input.CategoryRowMapper;
 import eStoreProduct.model.customer.input.Product;
-import eStoreProduct.model.customer.input.ProductRowMapper;
+import eStoreProduct.model.customer.input.ProductRowMapperForCust;
 import eStoreProduct.utility.ProductStockPriceForCust;
 import eStoreProduct.DAO.admin.ProdStockDAO; 
 
@@ -60,7 +60,7 @@ public class productDAOImpForCust implements ProductDAOForCust {
 	public List<ProductStockPriceForCust> getProductsByCategory(Integer category_id) {
 		logger.info("eStoreProduct:DAO:ProductDAOImp:getting the products based on the category selected");
 		System.out.println("in pdaoimp cid   " + category_id);
-		List<ProductStockPriceForCust> p = jdbcTemplate.query(get_products_by_catg, new ProductRowMapper(prodStockDAO),
+		List<ProductStockPriceForCust> p = jdbcTemplate.query(get_products_by_catg, new ProductRowMapperForCust(prodStockDAO),
 				category_id);
 
 		return p;
@@ -69,7 +69,7 @@ public class productDAOImpForCust implements ProductDAOForCust {
 	//method to get all the products
 	public List<ProductStockPriceForCust> getAllProducts() {
 		logger.info("eStoreProduct:DAO:ProductDAOImp:getting all the products");
-		return jdbcTemplate.query(products_query, new ProductRowMapper(prodStockDAO));
+		return jdbcTemplate.query(products_query, new ProductRowMapperForCust(prodStockDAO));
 	}
 
 	//method to get all the categories available
@@ -81,7 +81,7 @@ public class productDAOImpForCust implements ProductDAOForCust {
 	//method to get product by id
 	public ProductStockPriceForCust getProductById(Integer productId) {
 		logger.info("eStoreProduct:DAO:ProductDAOImp:getting product by id");
-		List<ProductStockPriceForCust> products = jdbcTemplate.query(get_prd, new ProductRowMapper(prodStockDAO), productId);
+		List<ProductStockPriceForCust> products = jdbcTemplate.query(get_prd, new ProductRowMapperForCust(prodStockDAO), productId);
 		return products.isEmpty() ? null : products.get(0);
 	}
 
@@ -138,7 +138,7 @@ public class productDAOImpForCust implements ProductDAOForCust {
 		logger.info("eStoreProduct:DAO:ProductDAOImp:getting the products available in the search done");
 		String query = "SELECT p.*, ps.prod_price FROM slam_Products p JOIN slam_productstock ps ON p.prod_id = ps.prod_id "
 				+ "WHERE p.prod_title ILIKE '%' || ? || '%' OR p.prod_desc ILIKE '%' || ? || '%' OR p.prod_brand ILIKE '%' || ? || '%'";
-		List<ProductStockPriceForCust> products = jdbcTemplate.query(query, new ProductRowMapper(prodStockDAO), search, search,
+		List<ProductStockPriceForCust> products = jdbcTemplate.query(query, new ProductRowMapperForCust(prodStockDAO), search, search,
 				search);
 		return products;
 	}

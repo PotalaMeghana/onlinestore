@@ -47,6 +47,8 @@ public class adminViewPaymentsController {
 		Timestamp end = convertToTimestampWithoutTime(endDate);
 		// call the method to get the payments between the dates selected
 		List<AdminViewPayments> payments = adminPayment.getPaymentsBetweenDates(start, end);
+		// for (AdminViewPayments a : payments)
+		// System.out.println("payments " + a);
 		model.addAttribute("payments", payments);
 		// call view
 		return "viewPayments";

@@ -221,11 +221,12 @@ $(document).ready(function() {
 	 
 	
 	 
-	 $(document).on('click', '.stocks-Link', function(event) {
+	$(document).on('click', '.stocks-Link', function(event) {
 		    event.preventDefault();
 		   console.log("entered Stocks");
 		    displayStocks();
 	    });
+	    
 	function  displayStocks(){
 	//showSpinner();
 		 $.ajax({
@@ -245,7 +246,6 @@ $(document).ready(function() {
    	      }
    	    });
 	}
-	
 	
 	
 
@@ -270,6 +270,7 @@ $(document).ready(function() {
 	      success: function(response) {
 	        $('#content').html(response); // Set the response HTML as the inner HTML of the select element
 	        //hideSpinner();
+	        showCategoriesCatalog();
 	      },
 	      error: function(xhr, status, error) {
 	        console.log('AJAX Error: ' + error);
@@ -373,61 +374,7 @@ $(document).on('click', '#edit-button', function(event) {
 	
 	
 	
-	$(document).on('click', '#editprice-button', function(event) {
-    event.preventDefault();
-
-    var prod_id = $(this).data('prod-id');
-    var prod_gstc_id = $('#prodGstcId-input').val();
-
-    var prod_mrp = parseFloat($('#prodMrp-input').text().trim());
-    var prod_price = parseFloat($('#prodPrice-input').val());
-	console.log("price to be updated is",prod_price);
-    if (prod_price > prod_mrp) {
-        alert("Price cannot be greater than MRP!");
-        return;
-    }
-
-    updatePriceReview(prod_id, prod_mrp, prod_price);
-});
-
-function updatePriceReview(prod_id, prod_mrp, prod_price) {
-//showSpinner();
-   toastr.options = {
-		  "closeButton": false,
-		  "debug": false,
-		  "newestOnTop": false,
-		  "progressBar": false,
-		  "positionClass": "toast-bottom-right",
-		  "preventDuplicates": false,
-		  "onclick": null,
-		  "showDuration": "300",
-		  "hideDuration": "1000",
-		  "timeOut": "5000",
-		  "extendedTimeOut": "1000",
-		  "showEasing": "swing",
-		  "hideEasing": "linear",
-		  "showMethod": "fadeIn",
-		  "hideMethod": "fadeOut"
-		}; 
-    $.ajax({
-        url: "updatePriceReview",
-        method: 'GET',
-        data: {
-            id: prod_id,
-            price: prod_price,
-            mrp: prod_mrp
-        },
-        success: function(response) {
-            //hideSpinner();
-            $('#content').html(response);
-            toastr.success('Updated the Price Successfully');
-        },
-        error: function(xhr, status, error) {
-            console.log('AJAX Error: ' + error);
-        }
-    });
-}
-
+	
 	
 	
 	
@@ -472,28 +419,7 @@ function updatePriceReview(prod_id, prod_mrp, prod_price) {
 		    });
 		}
 	
-	 function showCategoriesCatalog(){
-	 //showSpinner();
-		 $.ajax({
-			 url: "CategoriesServlet",
-		        method: 'GET',
-		        success: function(response) {
-		           // //hideSpinner();
-		            $('#categoryDropdown').html(response);
-		            console.log('Categories are brought');
-		        },
-		        error: function(xhr, status, error) {
-		            console.log('AJAX Error: ' + error);
-		        }
-		 });
-	 }
 	
-	 $(document).on('change', '#categoryDropdown', function(event) {
-		    event.preventDefault();
-		    var catg=document.getElementById("categoryDropdown").value;
-		   console.log("selected categoryyyyyy"+ catg);
-		    
-	    });
 	 
 
 	 

@@ -5,7 +5,6 @@ import org.springframework.stereotype.Component;
 
 import eStoreProduct.DAO.common.OrderDAO;
 import eStoreProduct.DAO.common.ProductDAO;
-//import eStoreProduct.DAO.customer.customerDAO;
 import eStoreProduct.DAO.common.customerDAO;
 
 @Component

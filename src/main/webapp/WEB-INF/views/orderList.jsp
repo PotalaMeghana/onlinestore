@@ -11,12 +11,18 @@
 
 <link rel="stylesheet" type="text/css" href="./css/orderList.css">
 
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
 
     <script src="./js/orderList.js"></script>
 </head>
 <body>
 <%String s=(String)request.getAttribute("token"); %>
  <p id="tokenHolder" style="display: none;"><%=s %></p>
+ <%String s1=(String)request.getAttribute("token1"); %>
+ <p id="tokenHolder1" style="display: none;"><%=s1 %></p>
  <% 
    int p = 0;
    Integer pageAttr = (Integer)request.getAttribute("page");
@@ -33,13 +39,14 @@
 <div class="container mt-5">
     <h2>Order List</h2>
     <div class="filters">
-        <label for="dateRangeFilter">Date Range Filter:</label>
-        <select id="dateRangeFilter" onchange="changeByDate()">
-            <option value="All">All</option>
-            <option id="daily" value="daily">Daily</option>
-            <option id="weekly" value="weekly">Weekly</option>
-            <option id="monthly" value="monthly">Monthly</option>
-        </select>
+      
+        <label for="startDate">Start Date:</label>
+    <input type="date" id="startDate" name="startDate" onchange="setMinEndDate()">
+            <label for="endDate">End Date:</label>
+        <input type="date" id="endDate" name="endDate">
+        <button onclick="applyDateFilter()">Apply Filters</button>
+        
+  
         <label for="processedStatusFilter">Processed Status Filter:</label>
         <% if (s != null && s.equals("All")){ %>
         <select id="processedStatusFilter" onchange="processedStatusFilter()">
@@ -65,6 +72,12 @@
         
        
     </div>
+    <div class="container mt-5">
+    <!-- Existing code -->
+    
+    <button id="viewStatisticsBtn" class="btn btn-primary">View Statistics</button>
+    
+</div>
 </div>
 
 <div class="container mt-5">
@@ -141,6 +154,26 @@
 </div>
 </div>
 
+
+<!-- Modal -->
+<div id="statisticsModal" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Orders Statistics</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <canvas id="orderChart" width="400" height="200"></canvas>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 
 

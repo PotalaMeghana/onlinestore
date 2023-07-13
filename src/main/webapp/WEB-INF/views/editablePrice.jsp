@@ -9,17 +9,113 @@
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+<script>
+
+$(document).ready(function() {
+  showCategoriesCatalog();
+
+  $(document).on('change', '#categoryDropdown', function(event) {
+    event.preventDefault();
+    var catg = $("#categoryDropdown").val();
+    console.log("selected categoryyyyyy" + catg);
+    retrieveCategorySpecificRecords(catg);
+  });
+
+  $(document).on('click', '#editprice-button', function(event) {
+    event.preventDefault();
+    var $row = $(this).closest('tr');
+    var prod_id = $(this).data('prod-id');
+    var prod_gstc_id = $(this).data('gstc-id');
+
+    var prod_mrp = parseFloat($(this).data('mrp-id'));
+    var prod_price2 = parseFloat($(this).data('price-id'));
+    var prod_price = parseFloat($('#prodPrice-input-' + prod_id).val());
+
+    if (prod_price > prod_mrp) {
+      toastr.error("Price cannot be greater than MRP!");
+      console.log("price>mrp");
+    } else {
+      updatePriceReview(prod_id, prod_mrp, prod_price);
+      console.log("price less than mrp");
+    }
+  });
+
+  function showCategoriesCatalog() {
+    $.ajax({
+      url: "CategoriesDropdownList",
+      method: 'GET',
+      success: function(response) {
+        $('#categoryDropdown').html(response);
+        console.log('Categories are brought');
+      },
+      error: function(xhr, status, error) {
+        console.log('AJAX Error: ' + error);
+      }
+    });
+  }
+
+  function retrieveCategorySpecificRecords(catg) {
+    $.ajax({
+      url: "CategorySpecificRecordsForPriceReview",
+      method: "GET",
+      data: { catg: catg },
+      success: function(response) {
+        $('#tableContent').html(response);
+      },
+      error: function(xhr, status, error) {
+        console.log('AJAX Error: ' + error);
+      }
+    });
+  }
+  function updatePriceReview(prod_id, prod_mrp, prod_price) {
+	  event.preventDefault();
+	  
+	  // Convert the price values to floats
+	  var mrp = parseFloat(prod_mrp);
+	  var price = parseFloat(prod_price);
+	  
+	  if (price > mrp) {
+	    toastr.error("Price cannot be greater than MRP!");
+	    console.log("price > mrp");
+	  } else {
+	    $.ajax({
+	      url: "updatePriceReview",
+	      method: 'GET',
+	      data: {
+	        id: prod_id,
+	        price: price,
+	        mrp: mrp
+	      },
+	      success: function(response) {
+	        $('#tableContent').html(response);
+	        console.log('In the updation of master entry function');
+	        showCategoriesCatalog();
+	      },
+	      error: function(xhr, status, error) {
+	        console.log('AJAX Error: ' + error);
+	      }
+	    });
+	  }
+	}
+
+
+
+});
+
+
+</script>
 </head>
 <body>
 
- <div class="container mt-5">
-            <div class="text-left mb-3">
-                <select   id="categoryDropdown" class="form-control">
-                    <!-- Options for categories -->
-                </select>
-            </div>
-  </div>
-
+ 
+    <div class="container mt-5">
+      <div class="text-left mb-3">
+        <select id="categoryDropdown" class="form-control">
+          <!-- Options for categories -->
+        </select>
+      </div>
+    </div>
+<div id="tableContent">
 <table id="tableData" class="table table-bordered table-hover">
     <thead class="thead-dark">
         <tr>
@@ -52,109 +148,28 @@
             </td>
             <td>
             	 <% if (stock.getPrice() < stock.getMrp()) { %>
-                <button id="editprice-button" class="btn btn-success"  
+                  <button id="editprice-button" class="btn btn-success"  
                         data-price-id="<%= stock.getPrice() %>"
                         data-prod-id="<%= stock.getId() %>"
                         data-mrp-id="<%= stock.getMrp() %>">UPDATE</button>
                         <%}
             	 else{
                         	%>
-                        	   <button id="editprice-button" class="btn btn-danger"  
+                        	     <button id="editprice-button" class="btn btn-danger"  
                         data-price-id="<%= stock.getPrice() %>"
                         data-prod-id="<%= stock.getId() %>"
                         data-mrp-id="<%= stock.getMrp() %>">UPDATE</button>
+
                       <%} %>  
             </td>
         </tr>
         <% } %>
     </tbody>
 </table>
-
+</div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
-<script>
-/* $(document).on('change', '#categoryDropdown', function(event) {
-    event.preventDefault();
-    var ctg_id = document.getElementById("categoryDropdown").value;
-    console.log(ctg_id);
-    document.getElementById("prod_prct_id").value = parseInt(ctg_id);
-    retriveCategoryWisePrices(ctg_id);
-});
 
-function retriveCategoryWisePrices(ctg_id) {
-    $.ajax({
-      url: "retriveCategoryWisePrices",
-      method: 'GET',
-      data: {
-    	  ctg_id:ctg_id
-      },
-      success: function(response) {
-        $('#content').html(response);
-        console.log('In the updation of master entry function');
-      },
-      error: function(xhr, status, error) {
-        console.log('AJAX Error: ' + error);
-      }
-    });
-  }
- */
-$(document).ready(function() {
-  $(document).on('click', '#editprice-button', function(event) {
-    event.preventDefault();
-    toastr.options = {
-    		  "closeButton": false,
-    		  "debug": false,
-    		  "newestOnTop": false,
-    		  "progressBar": false,
-    		  "positionClass": "toast-top-center",
-    		  "preventDuplicates": false,
-    		  "onclick": null,
-    		  "showDuration": "300",
-    		  "hideDuration": "1000",
-    		  "timeOut": "5000",
-    		  "extendedTimeOut": "1000",
-    		  "showEasing": "swing",
-    		  "hideEasing": "linear",
-    		  "showMethod": "fadeIn",
-    		  "hideMethod": "fadeOut"
-    		}; 
-    var $row = $(this).closest('tr');
-    var prod_id = $(this).data('prod-id');
-    var prod_gstc_id = $(this).data('gstc-id');
-
-    var prod_mrp = parseFloat($(this).data('mrp-id'));
-    var prod_price2=parseFloat($(this).data('price-id'));
-    var prod_price = parseFloat($('#prodPrice-input-' + prod_id).val());
-
-    if (prod_price > prod_mrp) {
-      $row.addClass('warning');
-      toastr.error("Price cannot be greater than MRP!");
-     prod_price=prod_price2;	
-    }
-
-    updatePriceReview(prod_id, prod_mrp, prod_price);
-  });
-
-  function updatePriceReview(prod_id, prod_mrp, prod_price) {
-    $.ajax({
-      url: "updatePriceReview",
-      method: 'GET',
-      data: {
-        id: prod_id,
-        price: prod_price,
-        mrp: prod_mrp
-      },
-      success: function(response) {
-        $('#content').html(response);
-        console.log('In the updation of master entry function');
-      },
-      error: function(xhr, status, error) {
-        console.log('AJAX Error: ' + error);
-      }
-    });
-  }
-});
-</script>
 
 </body>
 </html>

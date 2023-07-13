@@ -1,6 +1,7 @@
 package eStoreProduct.DAO.common;
 
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 import eStoreProduct.model.admin.entities.orderModel;
@@ -29,4 +30,8 @@ public interface OrderDAO {
 	long getTotalProcessedRecords();
 
 	long getTotalUnprocessedOrders();
+
+	List<orderModel> getOrdersByDate(Date startDate, Date endDate, int page, int pageSize);
+
+	double getTotalOrdersByDate(Date startDate, Date endDate);
 }

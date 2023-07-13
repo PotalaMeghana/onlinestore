@@ -140,26 +140,24 @@ public class stockSummaryDAOImp implements stockSummaryDAO {
 		return 0;
 	}
 
-	// @Override
-	// public List<stockSummaryModel> getCategoryWiseStocks(Integer ctg_id) {
-	// // TODO Auto-generated method stub
-	// logger.info("getting the total stocks from stockSummaryModel");
-	// String query = "SELECT NEW eStoreProduct.model.admin.output.stockSummaryModel("
-	// + "p.id, p.title, p.productCategory, p.hsnCode, p.brand, p.imageUrl, p.description, p.reorderLevel,
-	// pc.prct_title, "
-	// + "hsn.sgst, hsn.igst, hsn.cgst, hsn.gst, ps.price, ps.stock, ps.mrp) "
-	// + "FROM eStoreProduct.model.admin.entities.productsModel p,
-	// eStoreProduct.model.admin.entities.productCategoryModel pc, eStoreProduct.model.admin.entities.HSNCodeModel hsn,
-	// eStoreProduct.model.admin.entities.productStockModel ps "
-	// + "WHERE p.id = ps.product AND p.hsnCode = hsn.hsnCode AND pc.id = p.productCategory and pc.id= :ctg_id";
-	//
-	// try {
-	// TypedQuery<stockSummaryModel> typedQuery = entityManager.createQuery(query, stockSummaryModel.class)
-	// .setParameter("ctg_id", ctg_id);
-	// return typedQuery.getResultList();
-	// } catch (Exception e) {
-	// logger.error("Error retrieving stocks: " + e.getMessage(), e);
-	// return Collections.emptyList(); // or throw an exception if required
-	// }
-	// }
+	@Override
+	@Transactional
+	public List<stockSummaryModel> getCategoryWiseStocks(long catg) {
+		logger.info("getting the Category Wise stocks from stockSummaryModel");
+		String query = "SELECT NEW eStoreProduct.model.admin.output.stockSummaryModel("
+				+ "p.id, p.title, p.productCategory, p.hsnCode, p.brand, p.imageUrl, p.description, p.reorderLevel, pc.prct_title, "
+				+ "hsn.sgst, hsn.igst, hsn.cgst, hsn.gst, ps.price, ps.stock, ps.mrp) "
+				+ "FROM eStoreProduct.model.admin.entities.productsModel p, eStoreProduct.model.admin.entities.productCategoryModel pc, eStoreProduct.model.admin.entities.HSNCodeModel hsn, eStoreProduct.model.admin.entities.productStockModel ps "
+				+ "WHERE p.id = ps.product AND p.hsnCode = hsn.hsnCode AND pc.id = p.productCategory and pc.id=:catg";
+
+		try {
+			TypedQuery<stockSummaryModel> typedQuery = entityManager.createQuery(query, stockSummaryModel.class)
+					.setParameter("catg", catg);
+			;
+			return typedQuery.getResultList();
+		} catch (Exception e) {
+			logger.error("Error retrieving stocks: " + e.getMessage(), e);
+			return Collections.emptyList(); // or throw an exception if required
+		}
+	}
 }
