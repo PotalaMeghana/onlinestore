@@ -10,7 +10,7 @@ import javax.persistence.Table;
 import eStoreProduct.externalServices.passwordHashing;
 
 @Entity
-@Table(name = "slam_adminusers")
+@Table(name = "slam_ausr")
 public class adminModel {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -51,7 +51,7 @@ public class CustomerController {
 	walletDAO wdao;
 	StockUpdaterDAO stckdao;
 	List<ProductStockPriceForCust> products = null;
-	List<ProductStockPriceForCust> product2 = new ArrayList<ProductStockPriceForCust>();
+	List<ProductStockPriceForCust> nonCartProducts = new ArrayList<ProductStockPriceForCust>();
 	orderModel om;
 	InvoiceMailSending invoiceMail;
 	WalletCalculationBLL obj;
@@ -134,9 +134,9 @@ public class CustomerController {
 		}
 	}
 
-	@GetMapping("/getOrderId")
+	@GetMapping("/handleStockUpdation")
 	@ResponseBody
-	public String getOrderId(@RequestParam(value = "amt") double amt, HttpSession session) {
+	public String handleStockUpdation(@RequestParam(value = "amt") double amt, HttpSession session) {
 		custCredModel cust1 = (custCredModel) session.getAttribute("customer");
 		if (cust1 != null) {
 			// If user is logged in, retrieve products from the cart and update their
@@ -149,7 +149,7 @@ public class CustomerController {
 				} catch (QuantityExceedsStockException e) {
 					// Handle exception for quantity exceeding stock
 					e.printStackTrace();
-					return "Error";
+					return "error";
 				}
 			}
 		}
@@ -231,17 +231,18 @@ public class CustomerController {
 		if (buytype.equals("cartproducts")) {
 			products = BLL.GetQtyItems2();
 		} else {
-			products = product2;
+			products = nonCartProducts;
 		}
 		// getting orders gst
 		om.setGst(BLL.getOrderGST(products));
 		model.addAttribute("payment_id", om.getPaymentReference());
 		odao.insertIntoOrders(om, products);
-		for (ProductStockPriceForCust p : products) {
-			System.out.print("product stock" + p.getProduct_stock());
-			int updatestock = p.getProduct_stock() - p.getQuantity();
-			stckdao.updateStocks(p.getProd_id(), updatestock);
-		}
+		/*
+		 * for (ProductStockPriceForCust p : products) {
+		 * System.out.print("product stock" + p.getProduct_stock()); int updatestock =
+		 * p.getProduct_stock() - p.getQuantity(); stckdao.updateStocks(p.getProd_id(),
+		 * updatestock); }
+		 */
 		// adding requried attributes to the model
 		model.addAttribute("customer", cust1);
 		model.addAttribute("payid", id);
@@ -256,16 +257,25 @@ public class CustomerController {
 
 	// buying an individual product directly without cart
 	@GetMapping("/buythisproduct")
+	@ResponseBody
 	public String buythisproduct(@RequestParam(value = "productId", required = true) int productId,
 			@RequestParam(value = "qty", required = true) int qty, Model model, HttpSession session)
 			throws NumberFormatException, SQLException {
 		logger.info("estoreproduct:customer controller::customer want to buy the individual product");
 
-		product2.clear();
+		nonCartProducts.clear();
 		custCredModel cust1 = (custCredModel) session.getAttribute("customer");
+		if(cust1!=null) {
+		try {
+			stckdao.updateQtyBeforeCheckOut(productId,qty);
+		} catch (QuantityExceedsStockException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return "false";
+		}
 		// calculating the fare
 		ProductStockPriceForCust product = BLL.individualTotalfair(cust1, productId, qty);
-		product2.add(product);
+		nonCartProducts.add(product);
 
 		buytype = "individual";
 		// adding wallet amount
@@ -273,9 +283,14 @@ public class CustomerController {
 		wallet Wallet = wdao.getWalletAmount(cust1.getCustId());
 		model.addAttribute("Wallet", Wallet);
 
-		model.addAttribute("products", product2);
+		model.addAttribute("products", nonCartProducts);
 
-		return "paymentpreview";
+		return "true";
+		}
+		else
+		{
+			return "notLogin";
+		}
 	}
 
 	// verify whether person logged in or not before proceeding to buy

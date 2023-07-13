@@ -57,7 +57,7 @@ public class StockUpdaterDAOImp implements StockUpdaterDAO {
 	public void updateQtyBeforeCheckOut(int prod_id, int qty) throws QuantityExceedsStockException {
 		// Get the current stock of the product
 		int prodstock = getProductStock(prod_id);
-
+      System.out.println("prodid "+prod_id+"  stock in qtybeforechechout ,method  "+prodstock+"  qty  "+qty);
 		if (getProductStock(prod_id) >= qty) {
 			// Update the product stock after deducting the quantity
 			String updateSt = "UPDATE slam_productstock SET prod_stock = ? WHERE prod_id = ?";

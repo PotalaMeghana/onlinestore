@@ -88,7 +88,7 @@
 		    </div>
 		    <br>
 <!-- 		    <button class="btn btn-primary back">Back</button> -->
-		    <button class="btn btn-primary pay" id="rzp-button1" onclick="openCheckout()">Proceed to Checkout</button>
+		    <button class="btn btn-primary pay" id="rzp-button1" onclick="openCheckout()">Proceed to Pay</button>
 		</div>
 		</div>
 

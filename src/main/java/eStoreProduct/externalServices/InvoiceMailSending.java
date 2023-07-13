@@ -53,9 +53,9 @@ public class InvoiceMailSending {
 		viewResolver.setSuffix(".jsp");
 		String viewName = "invoice";
 		request.setAttribute("ordermodel", ordermodel);
-		//EmailConfigModel emailConfigModel = emailConfig.getEmail();
-		//String adminEmail = emailConfigModel.getEmail();
-		//String adminPassword = emailConfigModel.getPwd();
+		EmailConfigModel emailConfigModel = emailConfig.getEmail();
+		String adminEmail = emailConfigModel.getEmail();
+		String adminPassword = emailConfigModel.getPwd();
 
 		// Render JSP
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/views/" + viewName + ".jsp");
@@ -69,10 +69,7 @@ public class InvoiceMailSending {
 		requestDispatcher.include(request, responseWrapper);
 		String renderedHtml = stringWriter.toString();
 
-		String filePath = "C:/MyApp/invoice.pdf";
-		OutputStream file = new FileOutputStream(new File(filePath));
-
-		//OutputStream file = new FileOutputStream(new File("C:/Invoice.pdf"));
+		 OutputStream file = new FileOutputStream(new File("Invoice.pdf"));
 		ConverterProperties converterProperties = new ConverterProperties();
 		HtmlConverter.convertToPdf(renderedHtml, file, converterProperties);
 
@@ -83,13 +80,13 @@ public class InvoiceMailSending {
 		p.put("mail.smtp.port", "587");
 		Session s = Session.getInstance(p, new Authenticator() {
 			protected PasswordAuthentication getPasswordAuthentication() {
-				return new PasswordAuthentication("potalameghana2@gmail.com", "juad solc doyd jjcm");
+				return new PasswordAuthentication(adminEmail,adminPassword);
 			}
 		});
 		try {
 			MimeMessage mm = new MimeMessage(s);
-			mm.setFrom(new InternetAddress("potalameghana2@gmail.com"));
-			mm.setRecipient(Message.RecipientType.TO, new InternetAddress("potalameghana2@gmail.com"));
+			mm.setFrom(new InternetAddress(adminEmail));
+			mm.setRecipient(Message.RecipientType.TO, new InternetAddress(email));
 			mm.setSubject("Order Confirmation Details");
 			// mm.setContent(renderedHtml, "text/html");
 			mm.setContent("This is invoice email...........\n", "text/html");

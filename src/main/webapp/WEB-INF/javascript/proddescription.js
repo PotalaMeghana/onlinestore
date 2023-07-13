@@ -48,7 +48,7 @@ $(document).ready(function(){
 
     function buyproduct(productId) {
         var qty = $("#qtyinp").val();
-        console.log(qty + " quantity");
+        console.log(qty + " quantity of product to buy selected");
         var notAvailable = $(".not-available");
 if (notAvailable.length > 0) {
             alert("Please check the availability of Shipment Location ");
@@ -56,17 +56,21 @@ if (notAvailable.length > 0) {
         
         else{
         $.ajax({
-            url: "checkloginornot",
+            url: "buythisproduct",
             method: 'GET',
-            data: { productId: productId },
+            data: { productId: productId ,
+            qty:qty},
             success: function(response) {
-                if (response === "true") {
-                    window.location.href = "buythisproduct?productId=" + productId + "&qty=" + qty;
-                } else {
-                    alert("Please sign in");
-
+                if (response == "notLogin") {
+					alert("Please sign in");
+                    //window.location.href = "buythisproduct?productId=" + productId + "&qty=" + qty+"&singleprod"+1;
                     window.location.href = "signIn";
+                } else if(response==true)
+                {
+					window.location.href = "paymentpreview";
                 }
+                else
+                toastr.error("stock is less than quantity ");
             },
             error: function(xhr, status, error) {
                 console.log('AJAX Error: ' + error);
