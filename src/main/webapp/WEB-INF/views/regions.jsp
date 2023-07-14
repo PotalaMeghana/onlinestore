@@ -30,12 +30,12 @@
     </div>
     <table>
         <tr>
-            <th>Region ID</th>
-            <th>Region Name</th>
-            <th>Pin From</th>
-            <th>Pin To</th>
-            <th>Surcharge</th>
-            <th>Price Waiver</th>
+            <th style="text-align: center; vertical-align: middle;">Region ID</th>
+            <th style="text-align: center; vertical-align: middle;">Region Name</th>
+            <th style="text-align: center; vertical-align: middle;">Pin From</th>
+            <th style="text-align: center; vertical-align: middle;">Pin To</th>
+            <th style="text-align: center; vertical-align: middle;">Surcharge</th>
+            <th style="text-align: center; vertical-align: middle;">Price Waiver</th>
             <th >         </th>
         </tr>
         <%-- Iterate over the list of regions and generate table rows --%>

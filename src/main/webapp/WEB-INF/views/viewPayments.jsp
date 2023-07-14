@@ -44,11 +44,11 @@
         <table id="tableData" class="table table-bordered table-hover">
             <thead class="thead-dark">
             <tr>
-                <th>Order Id</th>
-                <th>Order Billno</th>
-                <th>Order payreference</th>
-                <th>Order total</th>
-                <th>Payment Done On</th>
+                <th style="text-align: center; vertical-align: middle;">Order Id</th>
+                <th style="text-align: center; vertical-align: middle;">Order Billno</th>
+                <th style="text-align: center; vertical-align: middle;">Order payreference</th>
+                <th style="text-align: center; vertical-align: middle;">Order total</th>
+                <th style="text-align: center; vertical-align: middle;">Payment Done On</th>
             </tr>
             </thead>
             <tbody>

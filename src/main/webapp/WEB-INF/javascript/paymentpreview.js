@@ -143,14 +143,33 @@ function cancelPayment(){
             });
         }
 
-        $.ajax({
+        /*$.ajax({
             url: "handleStockUpdation",
             method: 'GET',
             data: { amt: amt },
             success: function(response) {
             	console.log("response == " + response);
-                if(response=="Error"){
-                	toastr.error("stock is less than quantity ");
+                if(response=="error"){
+                	//toastr.info("stock is less than quantity ");
+                	toastr.options = {
+        			  "closeButton": false,
+        			  "debug": false,
+        			  "newestOnTop": false,
+        			  "progressBar": false,
+        			  "positionClass": "toast-bottom-right",
+        			  "preventDuplicates": false,
+        			  "onclick": null,
+        			  "showDuration": "300",
+        			  "hideDuration": "1000",
+        			  "timeOut": "5000",
+        			  "extendedTimeOut": "1000",
+        			  "showEasing": "swing",
+        			  "hideEasing": "linear",
+        			  "showMethod": "fadeIn",
+        			  "hideMethod": "fadeOut"
+        			};
+        	  
+                	toastr.success("Quantity is more than stock");
                 	return;
                 }
                 orderId = response;
@@ -161,6 +180,42 @@ function cancelPayment(){
             error: function(xhr, status, error) {
                 console.log('AJAX Error: ' + error);
             }
-        });
+        });*/
+        $.ajax({
+  url: "handleStockUpdation",
+  method: 'GET',
+  data: { amt: amt },
+  success: function(response) {
+    console.log("response == " + response);
+    if (response == "error") {
+      toastr.options = {
+        closeButton: false,
+        debug: false,
+        newestOnTop: false,
+        progressBar: false,
+        positionClass: "toast-bottom-right",
+        preventDuplicates: false,
+        onclick: null,
+        showDuration: "300",
+        hideDuration: "1000",
+        timeOut: "5000",
+        extendedTimeOut: "1000",
+        showEasing: "swing",
+        hideEasing: "linear",
+        showMethod: "fadeIn",
+        hideMethod: "fadeOut"
+      };
+
+      toastr.error("Quantity is more than stock");
+      return;
+    }
+    orderId = response;
+    handleOrder(orderId);
+  },
+  error: function(xhr, status, error) {
+    console.log('AJAX Error: ' + error);
+  }
+});
+
         
     }

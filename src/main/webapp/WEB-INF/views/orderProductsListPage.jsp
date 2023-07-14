@@ -17,14 +17,14 @@
     <table class="table table-bordered table-hover">
         <thead class="thead-dark">
             <tr>
-                <th>Order ID</th>
-                <th>Product ID</th>
-                <th>Quantity</th>
-                <th>GST </th>
-                <th>Price</th>
-                <th>Shipment Status</th>
-                <th>Change Status</th>
-                <th>Status</th>
+                <th style="text-align: center; vertical-align: middle;">Order ID</th>
+                <th style="text-align: center; vertical-align: middle;">Product ID</th>
+                <th style="text-align: center; vertical-align: middle;">Quantity</th>
+                <th style="text-align: center; vertical-align: middle;">GST </th>
+                <th style="text-align: center; vertical-align: middle;">Price</th>
+                <th style="text-align: center; vertical-align: middle;">Shipment Status</th>
+                <th style="text-align: center; vertical-align: middle;">Change Status</th>
+                <th style="text-align: center; vertical-align: middle;">Status</th>
             </tr>
         </thead>
         <tbody>

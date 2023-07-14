@@ -22,22 +22,22 @@
     <table id="tableData" class="table table-bordered table-hover">
         <thead class="thead-dark">
             <tr>
-                <th>Product ID</th>
-                <th>Product Title</th>
-                <th>Product Category ID</th>
-                <th>Product GST Category ID</th>
-                <th>Product Brand</th>
-                <th>Image URL</th>
+                <th style="text-align: center; vertical-align: middle;">Product ID</th>
+                <th style="text-align: center; vertical-align: middle;">Product Title</th>
+                <th style="text-align: center; vertical-align: middle;">Product Category ID</th>
+                <th style="text-align: center; vertical-align: middle;">Product GST Category ID</th>
+                <th style="text-align: center; vertical-align: middle;">Product Brand</th>
+                <th style="text-align: center; vertical-align: middle;">Image URL</th>
                <!--  <th>Product Description</th> -->
-                <th>Reorder Level</th>
-                <th>Product Category Title</th>
-                <th>SGST</th>
-                <th>IGST</th>
-                <th>CGST</th>
-                <th>GST</th>
-                <th>Product Price</th>
-                <th>Product Stock</th>
-                <th>Product MRP</th>
+                <th style="text-align: center; vertical-align: middle;">Reorder Level</th>
+                <th style="text-align: center; vertical-align: middle;">Product Category Title</th>
+                <th style="text-align: center; vertical-align: middle;">SGST</th>
+                <th style="text-align: center; vertical-align: middle;">IGST</th>
+                <th style="text-align: center; vertical-align: middle;">CGST</th>
+                <th style="text-align: center; vertical-align: middle;">GST</th>
+                <th style="text-align: center; vertical-align: middle;">Product Price</th>
+                <th style="text-align: center; vertical-align: middle;">Product Stock</th>
+                <th style="text-align: center; vertical-align: middle;">Product MRP</th>
             </tr>
         </thead>
         <tbody>

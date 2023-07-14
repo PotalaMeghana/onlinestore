@@ -11,18 +11,21 @@
 <head>
     <meta charset="ISO-8859-1">
     <title>Order Summary</title>
-            <link rel="stylesheet" type="text/css" href="./css/paymentpreview.css">
-                <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-            
-                      <script src="./js/paymentpreview.js"></script>
-               <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        .toastr-strong {
+            font-weight: bold;
+            color: #fff;
+            background-color: #ff0000; /* Customize the background color */
+        }
+    </style>
+    
+    <link rel="stylesheet" type="text/css" href="./css/paymentpreview.css">
+    <script src="./js/paymentpreview.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 </head>
 <body>
 <br/>

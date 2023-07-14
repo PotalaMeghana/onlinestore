@@ -119,14 +119,14 @@ $(document).ready(function() {
 <table id="tableData" class="table table-bordered table-hover">
     <thead class="thead-dark">
         <tr>
-            <th>Product ID</th>
-            <th>Product Title</th>
-            <th>Product Category ID</th>
-            <th>Product GST Category ID</th>
-            <th>Product Brand</th>
-            <th>Product MRP</th>
-            <th>Product Price</th>
-            <th>EDIT</th>
+            <th style="text-align: center; vertical-align: middle;">Product ID</th>
+            <th style="text-align: center; vertical-align: middle;">Product Title</th>
+            <th style="text-align: center; vertical-align: middle;">Product Category ID</th>
+            <th style="text-align: center; vertical-align: middle;">Product GST Category ID</th>
+            <th style="text-align: center; vertical-align: middle;">Product Brand</th>
+            <th style="text-align: center; vertical-align: middle;">Product MRP</th>
+            <th style="text-align: center; vertical-align: middle;">Product Price</th>
+            <th style="text-align: center; vertical-align: middle;">EDIT</th>
         </tr>
     </thead>
     <tbody>

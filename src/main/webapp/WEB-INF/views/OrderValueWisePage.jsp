@@ -28,11 +28,11 @@ import="eStoreProduct.model.admin.output.OrderValueWiseShippingCharge,java.util.
 <table>
     <thead>
         <tr>
-            <th>S.No</th>
-            <th>Order Value From</th>
-            <th>Order Value To</th>
-            <th>Shipping Amount</th>
-            <th>Actions</th>
+            <th style="text-align: center; vertical-align: middle;">S.No</th>
+            <th style="text-align: center; vertical-align: middle;">Order Value From</th>
+            <th style="text-align: center; vertical-align: middle;">Order Value To</th>
+            <th style="text-align: center; vertical-align: middle;">Shipping Amount</th>
+            <th style="text-align: center; vertical-align: middle;">Actions</th>
         </tr>
     </thead>
     <tbody>

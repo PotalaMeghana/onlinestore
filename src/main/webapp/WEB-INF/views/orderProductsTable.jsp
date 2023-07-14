@@ -18,11 +18,11 @@ List<orderProductsModel> orderproducts=(List<orderProductsModel>)request.getAttr
 <table>
     <thead>
         <tr>
-            <th>Order ID</th>
-            <th>Product Id</th>
-            <th>GST</th>
-            <th>Quantity</th>
-            <th>Price</th>
+            <th style="text-align: center; vertical-align: middle;">Order ID</th>
+            <th style="text-align: center; vertical-align: middle;">Product Id</th>
+            <th style="text-align: center; vertical-align: middle;">GST</th>
+            <th style="text-align: center; vertical-align: middle;">Quantity</th>
+            <th style="text-align: center; vertical-align: middle;">Price</th>
         </tr>
     </thead>
     <tbody>

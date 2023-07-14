@@ -148,7 +148,7 @@ public class CustomerController {
 					stckdao.updateQtyBeforeCheckOut(p.getProd_id(), p.getQuantity());
 				} catch (QuantityExceedsStockException e) {
 					// Handle exception for quantity exceeding stock
-					e.printStackTrace();
+					//e.printStackTrace();
 					return "error";
 				}
 			}

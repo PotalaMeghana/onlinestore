@@ -16,19 +16,19 @@
     <table>
         <thead>
             <tr>
-                <th>Order ID</th>
-                <th>Bill Number</th>
-                <th>Payment Reference</th>
-                <th>Customer ID</th>
-                <th>Order Date</th>
-                <th>Processed By</th>
-                <th>Payment Status</th>
-                <th>Payment Mode</th>
-                <th>Product ID</th>
-                <th>Quantity</th>
-                <th>Price</th>
-                <th>GST</th>
-                <th>Total</th>
+                <th style="text-align: center; vertical-align: middle;">Order ID</th>
+                <th style="text-align: center; vertical-align: middle;">Bill Number</th>
+                <th style="text-align: center; vertical-align: middle;">Payment Reference</th>
+                <th style="text-align: center; vertical-align: middle;">Customer ID</th>
+                <th style="text-align: center; vertical-align: middle;">Order Date</th>
+                <th style="text-align: center; vertical-align: middle;">Processed By</th>
+                <th style="text-align: center; vertical-align: middle;">Payment Status</th>
+                <th style="text-align: center; vertical-align: middle;">Payment Mode</th>
+                <th style="text-align: center; vertical-align: middle;">Product ID</th>
+                <th style="text-align: center; vertical-align: middle;">Quantity</th>
+                <th style="text-align: center; vertical-align: middle;">Price</th>
+                <th style="text-align: center; vertical-align: middle;">GST</th>
+                <th style="text-align: center; vertical-align: middle;">Total</th>
               
               
               
