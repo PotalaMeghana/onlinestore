@@ -50,29 +50,76 @@ public class ProductController {
 
 		return htmlContent.toString();
 	}
-//get categories wise products method and send via productcatalog jsp
-	@PostMapping("/categoryProducts")
-	public String showCategoryProducts(@RequestParam(value = "category_id", required = false) int categoryId,
-			Model model) {
-		List<ProductStockPriceForCust> products;
-		if (categoryId != 0) {
-		logger.info("eStoreProduct:Product Controller:get products of selected categories");
-			products = pdaoimp.getProductsByCategory(categoryId);
-		} else {
-			logger.info("eStoreProduct:Product Controller:displaying all no matched category items present");
-			products = pdaoimp.getAllProducts();
+	/*
+	 * //get categories wise products method and send via productcatalog jsp
+	 * 
+	 * @PostMapping("/categoryProducts") public String
+	 * showCategoryProducts(@RequestParam(value = "category_id", required = false)
+	 * int categoryId, Model model) { List<ProductStockPriceForCust> products; if
+	 * (categoryId != 0) { logger.
+	 * info("eStoreProduct:Product Controller:get products of selected categories");
+	 * products = pdaoimp.getProductsByCategory(categoryId); } else { logger.
+	 * info("eStoreProduct:Product Controller:displaying all no matched category items present"
+	 * ); products = pdaoimp.getAllProducts(); } model.addAttribute("products",
+	 * products); return "productCatalog"; }
+	 
+	 */
+
+	// get categories wise products method and send via productcatalog jsp
+		@PostMapping("/categoryProducts")
+		public String showCategoryProducts(@RequestParam(value = "category_id", required = false) int categoryId,
+				Model model) {
+			String catg_name = "";
+			List<ProductStockPriceForCust> products;
+			if (categoryId != 0) {
+				products = pdaoimp.getProductsByCategory(categoryId);
+			} else {
+				products = pdaoimp.getAllProducts();
+			}
+			List<Category> catg = pdaoimp.getAllCategories();
+			for (Category c : catg) {
+				if (categoryId == c.getPrct_id())
+					catg_name = c.getPrct_title();
+			}
+			model.addAttribute("catg_name", catg_name);
+			model.addAttribute("products", products);
+			return "productCatalog";
 		}
-		model.addAttribute("products", products);
-		return "productCatalog";
-	}
-//display the all products method
+
+	/*
+	 * //display the all products method
+	 * 
+	 * @GetMapping("/productsDisplay") public String showAllProducts(Model model) {
+	 * logger.
+	 * info("eStoreProduct:Product Controller:displaying initially all the products "
+	 * ); List<ProductStockPriceForCust> products = pdaoimp.getAllProducts();
+	 * model.addAttribute("products", products); return "productCatalog"; }
+	 */
+	
 	@GetMapping("/productsDisplay")
-	public String showAllProducts(Model model) {
-		logger.info("eStoreProduct:Product Controller:displaying initially all the products ");
-		List<ProductStockPriceForCust> products = pdaoimp.getAllProducts();
-model.addAttribute("products", products);
-return "productCatalog";
+	public String showAllProducts(@RequestParam(value = "page", required = false) String page, Model model) {
+	    int pageNumber = 1; // Default page number if the 'page' parameter is missing or invalid
+	    int productsPerPage = 9; // Specify the number of products per page
+
+	    if (page != null && !page.isEmpty()) {
+	        try {
+	            pageNumber = Integer.parseInt(page);
+	        } catch (NumberFormatException e) {
+	            // Handle the case where the 'page' parameter is not a valid integer
+	            // For example, log an error or return an error response
+	            // You could also set a default page number or display an error message to the user
+	            pageNumber = 1;
+	        }
+	    }
+
+	    // Calculate the starting index of products based on the page number and products per page
+	    int startIndex = (pageNumber - 1) * productsPerPage;
+	    List<ProductStockPriceForCust> products = pdaoimp.getPageProducts(startIndex, productsPerPage);
+
+	    model.addAttribute("products", products);
+	    return "productCatalog";
 	}
+
 //Individual products description 
 	@RequestMapping(value = "/prodDescription", method = RequestMethod.GET)
 	public String getSignUpPage(@RequestParam(value = "productId", required = false) int productId, Model model,
@@ -137,14 +184,21 @@ return "productCatalog";
 		model.addAttribute("products", filteredList);
 		return "productCatalog";
 	}
-	// Get the search products method
-	@GetMapping("/searchProducts")
-	public String searchProducts(@RequestParam("search") String search, Model model) {
-		logger.info("eStoreProduct:Product Controller:getting the products according to the searched context");
-		List<ProductStockPriceForCust> productList = pdaoimp.searchproducts(search); // Assuming the method name is
-		model.addAttribute("products", productList);
-		return "productCatalog"; // Assuming "productCatalog" is the name of your view file
-	}
+	// Get then search products
+		@GetMapping("/searchProducts")
+		public String searchProducts(@RequestParam("search") String search, Model model) {
+			List<ProductStockPriceForCust> productList = pdaoimp.searchproducts(search);
+			model.addAttribute("products", productList);
+			return "productCatalog"; // Assuming "productCatalog" is the name of your view file
+		}
+
+		@GetMapping("/SearchSuggestions")
+		@ResponseBody
+		public List<String> SearchSuggestions(@RequestParam("search") String search) {
+			List<String> suggestions = pdaoimp.getSearchSuggestions(search);
+			return suggestions;
+		}
+
 	// check pincode availability
 	@PostMapping("/checkPincode")
 	@ResponseBody

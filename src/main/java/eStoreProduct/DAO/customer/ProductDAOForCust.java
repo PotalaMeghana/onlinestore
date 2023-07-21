@@ -31,4 +31,9 @@ public interface ProductDAOForCust {
 
 	public List<ProductStockPriceForCust> searchproducts(String search);
 
+	public List<String> getSearchSuggestions(String search);
+
+	public List<ProductStockPriceForCust> getPageProducts(int startIndex, int productsPerPage);
+
+
 }

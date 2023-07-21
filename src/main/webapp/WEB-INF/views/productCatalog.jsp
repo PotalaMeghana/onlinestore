@@ -13,6 +13,9 @@
 </head>
 <body>
 <div class="container mt-5">
+<%if(request.getAttribute("catg_name")!=null){%>
+	<h1 style="text-align:center;"><%=request.getAttribute("catg_name") %></h1>
+<% }%>
     <div class="row mt-4">
         <%-- Iterate over the products and render the HTML content --%>
         <%
@@ -20,10 +23,12 @@
         	//ProdStockDAO ps = new ProdStockDAOImp();
             for (ProductStockPriceForCust product : products) {
         %>
-        <div class="col-lg-4 col-md-6 mb-4">
+         <div class="col-lg-4 col-md-6 mb-4">
             <div class="card h-100">
                 <a href="javascript:void(0)" onclick="showProductDetails('<%= product.getProd_id() %>')">
-                    <img class="card-img-top" src="<%= product.getImage_url() %>" alt="<%= product.getProd_title() %>">
+                    <div class="image-container d-flex justify-content-center align-items-center">
+				      <img class="card-img-top" src="<%= product.getImage_url() %>" alt="<%= product.getProd_title() %>" style="height: 200px;width:200px;">
+				    </div>
                 </a>
                 <div class="card-body">
                     <h5 class="card-title"><%= product.getProd_title() %></h5>

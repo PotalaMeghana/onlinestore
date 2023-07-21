@@ -35,7 +35,7 @@ function cancelPayment(){
         amt = document.getElementById("tid").value;
         console.log("amount in payment options jsp " + amt);
             function handleOrder(orderId) {
-            var expirationTime = 0.25 * 60 * 1000;
+            var expirationTime = 2.5 * 60 * 1000;
             alert("payment page will expire in 3 minutes");
             console.log("time started" + expirationTime);
             var options = {

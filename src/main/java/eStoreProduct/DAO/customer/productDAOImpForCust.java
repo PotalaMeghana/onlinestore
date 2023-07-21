@@ -36,6 +36,7 @@ public class productDAOImpForCust implements ProductDAOForCust {
 	// private String get_prd = "SELECT p.*, ps.prod_price,ps.prod_mrp FROM slam_Products p,slam_productstock ps where
 	// p.prod_id = ps.prod_id and ps.prod_id=?";
 	private String get_prd = "SELECT p.prod_id, p.prod_title, p.prod_brand, p.image_url, p.prod_desc,p.prod_gstc_id, ps.prod_price FROM slam_Products p, slam_productstock ps where p.prod_id = ps.prod_id and ps.prod_id=?";
+	private String getNextProd = "SELECT p.prod_id, p.prod_title, p.prod_brand, p.image_url, p.prod_desc, ps.prod_price FROM slam_Products p, slam_productstock ps where p.prod_id = ps.prod_id order by p.prod_id limit ? offset ?";
 	private ProdStockDAO prodStockDAO;
 	private static final Logger logger = 
 			LoggerFactory.getLogger(productDAOImpForCust.class);
@@ -132,14 +133,25 @@ public class productDAOImpForCust implements ProductDAOForCust {
 		return prodGstcId != null ? prodGstcId : 0;
 	}
 
-	@Override
-	//method to get the products available in the search done
-	public List<ProductStockPriceForCust> searchproducts(String search) {
-		logger.info("eStoreProduct:DAO:ProductDAOImp:getting the products available in the search done");
-		String query = "SELECT p.*, ps.prod_price FROM slam_Products p JOIN slam_productstock ps ON p.prod_id = ps.prod_id "
-				+ "WHERE p.prod_title ILIKE '%' || ? || '%' OR p.prod_desc ILIKE '%' || ? || '%' OR p.prod_brand ILIKE '%' || ? || '%'";
-		List<ProductStockPriceForCust> products = jdbcTemplate.query(query, new ProductRowMapperForCust(prodStockDAO), search, search,
-				search);
-		return products;
-	}
+	// @Override
+		public List<ProductStockPriceForCust> searchproducts(String search) {
+			String query = "SELECT p.*, ps.prod_price FROM slam_Products p JOIN slam_productstock ps ON p.prod_id = ps.prod_id "
+					+ "WHERE p.prod_title ILIKE '%' || ? || '%' OR p.prod_desc ILIKE '%' || ? || '%' OR p.prod_brand ILIKE '%' || ? || '%'";
+			List<ProductStockPriceForCust> products = jdbcTemplate.query(query, new ProductRowMapperForCust(prodStockDAO), search, search,
+					search);
+			return products;
+		}
+
+		public List<String> getSearchSuggestions(String search) {
+			String query = "SELECT prod_title FROM slam_Products WHERE prod_title ILIKE '%' || ? || '%'";
+			List<String> suggestions = jdbcTemplate.queryForList(query, String.class, search);
+			return suggestions;
+		}
+
+		@Override
+		public List<ProductStockPriceForCust> getPageProducts(int startIndex, int productsPerPage) {
+			// TODO Auto-generated method stub
+			return jdbcTemplate.query(getNextProd, new ProductRowMapperForCust(prodStockDAO), productsPerPage, startIndex);
+
+		}
 }

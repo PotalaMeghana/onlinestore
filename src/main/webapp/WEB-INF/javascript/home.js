@@ -1,5 +1,29 @@
-  
+function showSpinner() {
+	  var spinnerContainer = document.getElementById('spinner-container');
+	  spinnerContainer.style.display = 'flex';
+	}
 
+	function hideSpinner() {
+	  var spinnerContainer = document.getElementById('spinner-container');
+	  spinnerContainer.style.display = 'none';
+	}
+  toastr.options = {
+		  "closeButton": false,
+		  "debug": false,
+		  "newestOnTop": false,
+		  "progressBar": false,
+		  "positionClass": "toast-bottom-right",
+		  "preventDuplicates": false,
+		  "onclick": null,
+		  "showDuration": "300",
+		  "hideDuration": "1000",
+		  "timeOut": "5000",
+		  "extendedTimeOut": "1000",
+		  "showEasing": "swing",
+		  "hideEasing": "linear",
+		  "showMethod": "fadeIn",
+		  "hideMethod": "fadeOut"
+		};
     $(document).ready(function() {
       function loadCategories() {
         loadAllProducts();
@@ -14,8 +38,59 @@
           }
         });
       }
-//when user clicks on wishlist button this method get all the wishlist items
-      function showWishlist() {
+
+      var currentPage = 1; // Initialize the current page
+
+      $(window).scroll(function() {
+        // Check if the user has reached the bottom of the page
+        if ($(window).scrollTop() + $(window).height() >= $(document).height()) {
+          loadAllProducts(); // Call the function to load more products
+        }
+      });
+
+      function loadAllProducts() {
+        // Show a loading indicator or spinner here if desired
+        showSpinner();
+		console.log("in load products");
+        // Make an AJAX request to fetch the next set of products
+        $.ajax({
+          url: "productsDisplay",
+          method: 'GET',
+          data: { page: currentPage }, // Send the current page as a parameter
+          success: function(response) {
+            // Hide the loading indicator or spinner here if shown
+        	  hideSpinner();
+            // Append the fetched products to the existing product list on the page
+            $('#productsdisplay').append(response);
+
+            // Increment the current page
+            currentPage++;
+
+            
+          },
+          error: function(xhr, status, error) {
+            console.log('AJAX Error: ' + error);
+            // Handle the error condition here if necessary
+          }
+        });
+      }
+
+      /* function loadAllProducts() {
+        console.log("loadallproducts");
+    	  showSpinner();
+        $.ajax({
+          url: "productsDisplay",
+          method: 'GET',
+          success: function(response) {
+            $('#productsdisplay').html(response);
+            hideSpinner();
+          },
+          error: function(xhr, status, error) {
+            console.log('AJAX Error: ' + error);
+          }
+        });
+      } */
+  function showWishlist() {
       if (customerSession.customer == null) {
       alert("please signIn");
     window.location.href = "signIn";
@@ -73,20 +148,6 @@
     });
   }
 }
-      function loadAllProducts() {
-        console.log("loadallproducts");
-        $.ajax({
-          url: "productsDisplay",
-          method: 'GET',
-          success: function(response) {
-            $('#productsdisplay').html(response);
-          },
-          error: function(xhr, status, error) {
-            console.log('AJAX Error: ' + error);
-          }
-        });
-      }
-
       function addToCart(productId,quantity) {
         $.ajax({
           url: "addToCart",
@@ -106,6 +167,7 @@
         });
       }
 
+    
 
       function removeFromCart(productId) {
         console.log("Remove from cart called");
@@ -175,10 +237,9 @@
 
       function showCart() {
         $.ajax({
-          url: "cartItems",
+          url: "cartDisplay",
           method: 'GET',
           success: function(response) {
-        	 // window.location.href = "cart.jsp";
         	  $('#payment').html(response); // Set the response HTML as the inner HTML of the cart items element
           },
           error: function(xhr, status, error) {
@@ -187,19 +248,20 @@
         });
       }
 
- 
+     
+
      function loadProductsByCategory() {
     	 console.log("category selected");
+    	 
     	  var category=document.getElementById("catg").value;
     	  console.log("category id when loading category "+category);
     	  $.ajax({
     	      url: "categoryProducts",
     	      method: 'post',
     	      data:{category_id:category},
-    	      success: function(response) {
-    	    	  console.log("response of category based prod "+response);
-    	      
-    	        $('#prod').html(response); // Set the response HTML as the inner HTML of the select element
+    	      success: function(response) {    	      
+    	        $('#payment').html(response); // Set the response HTML as the inner HTML of the select element
+    	        
     	      },
     	      error: function(xhr, status, error) {
     	        console.log('AJAX Error: ' + error);
@@ -210,7 +272,7 @@
       loadCategories();
 
       // Call the loadAllProducts function when the page loads
-      loadAllProducts();
+     // loadAllProducts();
 
       // Add event listener for the "Add to Cart" button
       $(document).on('click', '.addToCartButton', function(event) {
@@ -254,12 +316,7 @@
       $('#Wishlist-button').click(function() {
         showWishlist();
       });
-      $('#searchbtn').click(function() {
-          event.preventDefault();
-
-         search();
-        });
-
+      
       var slides = $('.slide');
       var currentSlide = 0;
 
@@ -282,7 +339,7 @@
 
       // Start the slideshow
       setInterval(nextSlide, 3000); // Change slide every 3 seconds
-    });
+    
     function showProductDetails(productId) {
     	console.log("showproduct");   
     	$.ajax({
@@ -327,17 +384,54 @@
             }
         });
     }
-    function search() {
-    	  var searchTerm = document.getElementById("search").value;
-    	  $.ajax({
-    	    type: "GET",
-    	    url: "searchProducts", // Update the URL to the correct endpoint
-    	    data: { search: searchTerm },
-    	    success: function(response) {
-    	      $('#maindiv').html(response);
-    	    },
-    	    error: function() {
-    	      alert("Error occurred while filtering product details.");
-    	    }
-    	  });
-    	}
+    $('#searchbtn').on('click', function(event) {
+  	  event.preventDefault();
+  	  search();
+  	});
+
+  	$('#search').keypress(function(event) {
+  	  if (event.which === 13) {
+  	    event.preventDefault();
+  	    search();
+  	  }
+  	});
+
+  	$('#search').on('input', function() {
+  	  var searchTerm = $(this).val();
+  	  $.ajax({
+  	    type: "GET",
+  	    url: 'SearchSuggestions',
+  	    data: { search: searchTerm },
+  	    success: function(response) {
+  	      var suggestions = $('#suggestions');
+  	      suggestions.empty(); // Clear existing suggestions
+
+  	      // Iterate over the response and add each suggestion as an <option> element
+  	      response.forEach(function(suggestion) {
+  	        suggestions.append('<option value="' + suggestion + '">' + suggestion + '</option>');
+  	      });
+  	    },
+  	    error: function() {
+  	      alert("Error occurred while retrieving search suggestions.");
+  	    }
+  	  });
+  	});
+  });
+  function search() {
+	  var searchTerm = document.getElementById("search").value;
+	  $.ajax({
+	    type: "GET",
+	    url: 'searchProducts',
+	    data: { search: searchTerm },
+	    success: function(response) {
+	      $('#payment').html(response);
+	    },
+	    error: function() {
+	      alert("Error occurred while filtering product details.");
+	    },
+	    complete: function() {
+	      // Clear the search input after the search is completed
+	      $('#search').val('');
+	    }
+	  });
+	}

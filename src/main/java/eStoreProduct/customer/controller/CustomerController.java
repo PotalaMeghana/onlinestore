@@ -256,7 +256,7 @@ public class CustomerController {
 	}
 
 	// buying an individual product directly without cart
-	@GetMapping("/buythisproduct")
+	@PostMapping("/buythisproduct")
 	@ResponseBody
 	public String buythisproduct(@RequestParam(value = "productId", required = true) int productId,
 			@RequestParam(value = "qty", required = true) int qty, Model model, HttpSession session)
@@ -294,7 +294,7 @@ public class CustomerController {
 	}
 
 	// verify whether person logged in or not before proceeding to buy
-	@GetMapping("/checkloginornot")
+	@PostMapping("/checkloginornot")
 	@ResponseBody
 	public String buyproduct(Model model, HttpSession session) throws NumberFormatException, SQLException {
 		custCredModel cust1 = (custCredModel) session.getAttribute("customer");

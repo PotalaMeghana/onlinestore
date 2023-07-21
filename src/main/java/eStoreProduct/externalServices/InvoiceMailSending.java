@@ -93,7 +93,8 @@ public class InvoiceMailSending {
 			// mm.setContent(renderedHtml, "text/html");
 			mm.setContent("This is invoice email...........\n", "text/html");
 			BodyPart messageBodyPart = new MimeBodyPart();
-			messageBodyPart.setText("Your order has been placed successfully ."
+			messageBodyPart.setText("Thankyou for shopping with us."
+					+ "Your order has been placed successfully ."
 					+ "This is the order invoice");
 
 			Multipart multipart = new MimeMultipart();

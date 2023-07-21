@@ -11,9 +11,9 @@ import javax.persistence.Table;
 @Table(name = "SLAM_PRODUCTCATEGORIES")
 public class productCategoryModel {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	//@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "prct_id")
-	private Long id;
+	private int id;
 
 	@Column(name = "prct_title")
 	private String prct_title;
@@ -34,12 +34,12 @@ public class productCategoryModel {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Long getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setId(int c_id) {
+		this.id = c_id;
 	}
 
 	public String getDescription() {

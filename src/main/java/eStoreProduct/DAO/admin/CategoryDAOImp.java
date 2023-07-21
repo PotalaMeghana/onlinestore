@@ -60,13 +60,13 @@ public class CategoryDAOImp implements CategoryDAO {
         System.out.println(c_id + "Category_id\n");
 
         productCategoryModel categoryEntity = new productCategoryModel();
-        categoryEntity.setId((long) c_id);
+        categoryEntity.setId(c_id);
         categoryEntity.setPrct_title(catg.getPrct_title());
         categoryEntity.setDescription(catg.getPrct_desc());
 
         entityManager.merge(categoryEntity);
 
-        return categoryEntity.getId() == null;
+        return categoryEntity.getId() == 0;
     }
 
     /**

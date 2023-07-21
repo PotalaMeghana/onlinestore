@@ -40,7 +40,7 @@ $(document).ready(function(){
                     }
                 },
                 error: function(error) {
-                    console.error(error);
+                    console.log(error);
                 }
             });
         });
@@ -50,14 +50,14 @@ $(document).ready(function(){
         var qty = $("#qtyinp").val();
         console.log(qty + " quantity of product to buy selected");
         var notAvailable = $(".not-available");
-if (notAvailable.length > 0) {
+		if (notAvailable.length > 0) {
             alert("Please check the availability of Shipment Location ");
         }  
         
         else{
         $.ajax({
             url: "buythisproduct",
-            method: 'GET',
+            method: 'POST',
             data: { productId: productId ,
             qty:qty},
             success: function(response) {
@@ -97,16 +97,15 @@ if (notAvailable.length > 0) {
             url: "checkPincode",
             data: { pincode: pincode },
             success: function(response) {
-                var availabilityElement = $("#availability");
                 console.log(response);
                 if (response=="true") {
-                    availabilityElement.text("Available").removeClass("not-available").addClass("available");
+                    toastr.success("Available for Delivery");
                 } else {
-                    availabilityElement.text("Not Available").removeClass("available").addClass("not-available");
+                    toastr.success("Not available for delivery");
                 }
             },
             error: function(error) {
-                console.error(error);
+                console.log(error);
             }
         });
     }

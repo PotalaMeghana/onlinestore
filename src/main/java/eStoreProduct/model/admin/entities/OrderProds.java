@@ -13,12 +13,14 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "slam_orderproducts")
 public class OrderProds {
+	/*
+	 * @Id
+	 * 
+	 * @GeneratedValue(strategy = GenerationType.IDENTITY)
+	 * 
+	 * @Column(name = "op") private Integer id;
+	 */
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "op")
-    private Integer id;
-
-    
     @Column(name = "ordr_id")
     private Integer slamOrder;
 
@@ -54,13 +56,11 @@ public class OrderProds {
         this.price = price;
     }
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	/*
+	 * public Integer getId() { return id; }
+	 * 
+	 * public void setId(Integer id) { this.id = id; }
+	 */
 
     public Integer getSlamOrder() {
         return slamOrder;

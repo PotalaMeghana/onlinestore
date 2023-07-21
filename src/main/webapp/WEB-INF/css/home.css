@@ -1,4 +1,4 @@
-
+ /* 
    select {
     padding: 8px;
     border: 1px solid #ccc;
@@ -9,23 +9,23 @@
     width: 200px;
   }
 
-  /* Custom styles for the dropdown arrow */
+  Custom styles for the dropdown arrow
   select::-ms-expand {
-    display: none; /* Remove the default arrow in Internet Explorer */
+    display: none; Remove the default arrow in Internet Explorer
   }
 
   select::after {
-    content: '\25BC'; /* Unicode character for a down arrow */
+    content: '\25BC'; Unicode character for a down arrow
     position: absolute;
     top: 10px;
     right: 10px;
     padding: 0 8px;
     background-color: #ccc;
     color: #fff;
-    pointer-events: none; /* Prevent the arrow from being clickable */
+    pointer-events: none; Prevent the arrow from being clickable
   }
 
-  /* Custom styles for the dropdown options */
+  Custom styles for the dropdown options
   select option {
     background-color: #fff;
     color: #333;
@@ -35,7 +35,7 @@
   position: relative;
   display: inline-block;
   transition: visibility;
-  /* Add your desired background and text colors here */
+  Add your desired background and text colors here
   background-color: white;
   color: black;
 }
@@ -52,17 +52,17 @@ background-color:transparent;
 .dropdown-content {
   position: absolute;
   top: 100%;
-  left: -60px; /* Adjust this value as per your preference */
+  left: -60px; Adjust this value as per your preference
   display: none;
   overflow: hidden;
-  background-color: inherit; /* Set the background color to match the navbar */
+  background-color: inherit; Set the background color to match the navbar
   min-width: 120px;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   padding: 12px 10px;
   z-index: 1;
   opacity: 0;
   transition: opacity 0.3s ease;
-  /* Add your desired background and text colors here */
+  Add your desired background and text colors here
   background-color: navy;
   color: black;
 }
@@ -70,13 +70,13 @@ background-color:transparent;
 .dropdown-content a {
   display: block;
   margin-bottom: 5px;
-  white-space: nowrap; /* Ensures the content stays in a single line */
-  /* Add your desired text color here */
+  white-space: nowrap; Ensures the content stays in a single line
+  Add your desired text color here
   color: black;
 }
 
 .profile-dropdown:hover .dropdown-content a:hover {
-  /* Add your desired background color for hovered links here */
+  Add your desired background color for hovered links here
   background-color: white;
 }
 
@@ -160,11 +160,11 @@ nav ul li:not(:last-child) {
     }
     .slideshow-container img {
     width: 100%;
-    height: 500px; /* Adjust the height as per your preference */
+    height: 500px; Adjust the height as per your preference
     object-fit: cover; 
     }
     
      a{
      text-decoration:none;
      }
-   
+    */

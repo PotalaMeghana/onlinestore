@@ -86,7 +86,7 @@
             <tr  class="order-row" >
                 <th style="text-align: center; vertical-align: middle;">Order ID</th>
                 <th style="text-align: center; vertical-align: middle;">Customer ID</th>
-                <th style="text-align: center; vertical-align: middle;">Bill Number</th>
+                <th style="text-align: center; vertical-align: middle;">Payment Id</th>
                 <th style="text-align: center; vertical-align: middle;">Order Date</th>
                 <th style="text-align: center; vertical-align: middle;">Total</th>
                 <th style="text-align: center; vertical-align: middle;">GST</th>

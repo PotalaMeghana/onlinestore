@@ -19,7 +19,7 @@ import eStoreProduct.model.customer.entities.cartModel;
 @Table(name = "slam_products")
 public class productsModel {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	//@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "prod_id")
 	private Integer id;
 

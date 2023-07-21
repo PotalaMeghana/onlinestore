@@ -3,14 +3,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Prouct Added Successfully</title>
+  <title>Product Added Successfully</title>
   
       <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
       <link rel="stylesheet" type="text/css" href="./css/AddedProduct.css">
 
  
     <script src="./js/AddedProduct.js"></script>
- 
+ 	    <script src="./js/addNewProduct.js"></script>
+ 	       <!--  <script src="./js/AddedProduct.js"></script> -->
 </head>
 <body>
   <div class="container">

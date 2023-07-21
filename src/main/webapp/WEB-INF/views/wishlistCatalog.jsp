@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
     <%@ page import="java.util.*" %>
-    <%@ page import="eStoreProduct.utility.ProductStockPrice" %>
+    <%@ page import="eStoreProduct.utility.ProductStockPriceForCust" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,14 +14,14 @@
         <div class="row mt-4">
             <%-- Iterate over the products and render the HTML content --%>
             <%
-            List<ProductStockPrice> products = (List<ProductStockPrice>) request.getAttribute("products");
+            List<ProductStockPriceForCust> products = (List<ProductStockPriceForCust>) request.getAttribute("products");
             if(products==null)
             {
-            	System.out.println("null in wishlist");
+            	//System.out.println("null in wishlist");
             }else{
             //ProdStockDAO ps = new ProdStockDAOImp();
-                for (ProductStockPrice product : products) {
-                	System.out.println(product);
+                for (ProductStockPriceForCust product : products) {
+                	//System.out.println(product);
             %>
             <div class="col-lg-4 col-md-6 mb-4">
                 <div class="card h-100">
