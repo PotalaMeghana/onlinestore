@@ -192,7 +192,7 @@ nav ul li:not(:last-child) {
      text-decoration:none;
      }
      
-      /* #spinner-container {
+       #spinner-container {
 		  display: none; /* Initially hide the spinner */
 		  position: fixed;
 		  top: 0;
@@ -222,7 +222,7 @@ nav ul li:not(:last-child) {
 		  100% {
 		    transform: rotate(360deg);
 		  }
-		}  */
+		} 
 		   main {
 		    flex: 1;
 		  }

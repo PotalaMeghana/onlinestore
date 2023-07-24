@@ -21,6 +21,7 @@
     }
   </style>
 <body>
+<h3 style="text-align:center"><b>Category-Wise Reports</b></h3>
   <% List<CategoryReportViewModel> report = (List<CategoryReportViewModel>) request.getAttribute("categoryReport"); %>
   <% 
     int totalProducts = 0;

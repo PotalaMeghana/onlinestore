@@ -273,7 +273,7 @@ if (notAvailable.length > 0) {
         else{
         $.ajax({
             url: "checkloginornot",
-            method: 'POST',
+            method: 'GET',
             data: { productId: productId },
             success: function(response) {
                 if (response === "true") {

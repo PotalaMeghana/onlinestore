@@ -5,7 +5,6 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <link rel="stylesheet" type="text/css" href="./css/orderProductsListPage.css">
 
@@ -13,6 +12,7 @@
 
 </head>
 <body>
+<!-- <h3 style="text-align:center"><b>Create New Product</b></h3> -->
 <div class="container-fluid"> 
     <table class="table table-bordered table-hover">
         <thead class="thead-dark">

@@ -3,7 +3,6 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
 
 <link rel="stylesheet" type="text/css" href="./css/emailConfig.css">
 
@@ -13,6 +12,7 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
+<h3 style="text-align:center"><b>Configure Email</b></h3>
     <form>
         <label for="email">New Email:</label>
         <input type="text" id="email" placeholder="Enter your new email" name="email">

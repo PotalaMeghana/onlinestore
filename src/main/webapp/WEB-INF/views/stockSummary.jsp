@@ -10,6 +10,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
 </head>
 <body>
+<h3 style="text-align:center"><b>Stock Summary</b></h3>
   <div class="container mt-5">
     <button id="viewStatisticsBtn" class="btn btn-primary">View Statistics</button>
     <div class="container mt-5">

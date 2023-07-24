@@ -5,7 +5,7 @@
 <html>
   <div id="tab">
 <head>
-    <title>Order List</title>
+    
     
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" type="text/css" href="./css/GSTReports.css">
@@ -15,7 +15,7 @@
   
 </head>
 <body>
-
+<h3 style="text-align:center"><b>GST Reports</b></h3>
 <div>
         <label for="startDate">Start Date:</label>
     <input type="date" id="startDate" name="startDate" onchange="setMinEndDate()">

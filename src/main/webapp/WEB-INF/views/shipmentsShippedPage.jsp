@@ -23,7 +23,7 @@
 </head>
 <body>
 
-
+<h3 style="text-align:center"><b>Shipped Products</b></h3>
 
 <div class="container mt-5">
     <table id="tableData" class="table table-bordered table-hover">

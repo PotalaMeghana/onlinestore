@@ -18,6 +18,7 @@
 </head>
 <div id="content">
 <body>
+<h3 style="text-align:center"><b>Shipping Area Configuration</b></h3>
 <form>
 <input id="name" value="name" type="text">
 <input id="pinFrom" value="pinFrom" type="text">

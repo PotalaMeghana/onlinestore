@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Dashboard Example</title>
+    <title>SLAM Store</title>
 	  <link rel="stylesheet" type="text/css" href="./css/admin.css">
 	
     

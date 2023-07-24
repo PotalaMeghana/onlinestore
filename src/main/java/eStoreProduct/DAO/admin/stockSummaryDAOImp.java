@@ -152,7 +152,7 @@ public class stockSummaryDAOImp implements stockSummaryDAO {
 
 		try {
 			TypedQuery<stockSummaryModel> typedQuery = entityManager.createQuery(query, stockSummaryModel.class)
-					.setParameter("catg", catg);
+					.setParameter("catg",(int) catg);
 			;
 			return typedQuery.getResultList();
 		} catch (Exception e) {

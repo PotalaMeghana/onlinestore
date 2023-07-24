@@ -15,6 +15,7 @@
  
 </head>
 <body>
+<h3 style="text-align:center"><b>Payments</b></h3>
 <div id="paymentcontent">
 <div class="container" >
     <div class="filter-form">
@@ -39,9 +40,9 @@
         </select>
     </div>
 </div>
-<div class="container" >
+<div class="container">
     <div>
-        <table id="tableData" class="table table-bordered table-hover">
+        <table id="tableData" class="table table-bordered table-hover" style="margin: 0 auto;">
             <thead class="thead-dark">
             <tr>
                 <th style="text-align: center; vertical-align: middle;">Order Id</th>

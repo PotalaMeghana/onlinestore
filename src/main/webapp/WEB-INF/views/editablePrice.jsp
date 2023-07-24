@@ -107,7 +107,7 @@ $(document).ready(function() {
 </head>
 <body>
 
- 
+ <h3 style="text-align:center"><b>Price Review</b></h3>
     <div class="container mt-5">
       <div class="text-left mb-3">
         <select id="categoryDropdown" class="form-control">

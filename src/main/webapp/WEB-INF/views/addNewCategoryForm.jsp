@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Dashboard Example</title>
+    <title>SLAM Store</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" type="text/css" href="./css/addNewCategoryForm.css">
 
@@ -18,6 +18,7 @@
 
 </head>
 <body>
+<h3 style="text-align:center"><b>Create New Category</b></h3>
     <form action="createNewCategory" id="createNewCategory" method="post">
         
         <div class="container">

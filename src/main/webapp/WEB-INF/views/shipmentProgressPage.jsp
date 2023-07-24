@@ -40,10 +40,10 @@
 
 </style>
 <body>
-<h1> Orders In Progress</h1>
 
 
 
+<h3 style="text-align:center"><b>Shipments in Progress</b></h3>
 
  <select id="OrderSorting" onchange="sortBy(this.value)">
     <option>Sort By</option>

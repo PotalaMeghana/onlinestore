@@ -5,7 +5,6 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
 <link rel="stylesheet" type="text/css" href="./css/editableStocks.css">
 
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
@@ -15,7 +14,7 @@
 </head>
 
 <body>
-
+<h3 style="text-align:center"><b>Manage Stocks</b></h3>
 <table id="tableData" class="table table-bordered table-hover">
     <thead class="thead-dark">
         <tr>

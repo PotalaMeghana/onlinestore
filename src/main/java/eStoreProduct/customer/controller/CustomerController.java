@@ -256,8 +256,8 @@ public class CustomerController {
 	}
 
 	// buying an individual product directly without cart
-	@PostMapping("/buythisproduct")
-	@ResponseBody
+	@GetMapping("/buythisproduct")
+	//@ResponseBody
 	public String buythisproduct(@RequestParam(value = "productId", required = true) int productId,
 			@RequestParam(value = "qty", required = true) int qty, Model model, HttpSession session)
 			throws NumberFormatException, SQLException {
@@ -265,13 +265,13 @@ public class CustomerController {
 
 		nonCartProducts.clear();
 		custCredModel cust1 = (custCredModel) session.getAttribute("customer");
-		if(cust1!=null) {
+		
 		try {
 			stckdao.updateQtyBeforeCheckOut(productId,qty);
 		} catch (QuantityExceedsStockException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			return "false";
+			//return "false";
 		}
 		// calculating the fare
 		ProductStockPriceForCust product = BLL.individualTotalfair(cust1, productId, qty);
@@ -285,16 +285,13 @@ public class CustomerController {
 
 		model.addAttribute("products", nonCartProducts);
 
-		return "true";
+		return "paymentpreview";
 		}
-		else
-		{
-			return "notLogin";
-		}
-	}
+		
+	
 
 	// verify whether person logged in or not before proceeding to buy
-	@PostMapping("/checkloginornot")
+	@GetMapping("/checkloginornot")
 	@ResponseBody
 	public String buyproduct(Model model, HttpSession session) throws NumberFormatException, SQLException {
 		custCredModel cust1 = (custCredModel) session.getAttribute("customer");

@@ -31,7 +31,6 @@
      </div>
      <div class="content" id="content"> 
        <div style="display: flex; justify-content: space-between; align-items: center;">
-             <h1>Welcome to the the store</h1>
        </div>
          <div id="edit">
             <h1>Customer Profile</h1>

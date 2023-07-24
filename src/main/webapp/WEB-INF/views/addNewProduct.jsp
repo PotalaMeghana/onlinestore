@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Dashboard Example</title>
+    <title>SLAM Store</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" type="text/css" href="./css/addNewProduct.css">
 
@@ -50,6 +50,7 @@
    
 </head>
 <body>
+<h3 style="text-align:center"><b>Create New Product</b></h3>
     <form action="createNewProduct" id="createNewProducts" method="post">
         <div class="container mt-5">
             <div class="text-left mb-3">

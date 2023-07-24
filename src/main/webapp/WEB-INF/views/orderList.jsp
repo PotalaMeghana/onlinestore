@@ -37,7 +37,7 @@
   <div id="spinner"></div>
 </div>
 <div class="container mt-5">
-    <h2>Order List</h2>
+    <h2>Orders</h2>
     <div class="filters">
       
         <label for="startDate">Start Date:</label>
