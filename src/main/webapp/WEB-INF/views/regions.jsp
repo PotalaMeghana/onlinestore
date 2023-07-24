@@ -27,7 +27,7 @@
 <input id="priceWavier" value="priceWavier" type="text">
 </form>
 <div class="add-button">
-        <a class="add-region">Add Region</a>
+        <a class="add-region">Add Regions</a>
     </div>
     <table>
         <tr>
