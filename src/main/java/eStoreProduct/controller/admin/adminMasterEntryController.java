@@ -116,7 +116,8 @@ public class adminMasterEntryController {
 		logger.info("adminMasterEntryController  url:createNewProduct  returns:AddedProduct.jsp ");
 
 		System.out.print("creating newww product\n");
-		pdaoimp.createProduct(prod);
+		int pid=pdaoimp.createProduct(prod);
+		pdaoimp.addStock(pid);
 		System.out.print("created\n");
 		return "AddedProduct";
 

@@ -12,6 +12,7 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
+<br/>
 <h3 style="text-align:center"><b>Configure Email</b></h3>
     <form>
         <label for="email">New Email:</label>

@@ -8,9 +8,11 @@ import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import javax.sql.DataSource;
 import javax.transaction.Transactional;
 
 import org.hibernate.Session;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
 import eStoreProduct.model.admin.entities.productStockModel;
@@ -24,7 +26,11 @@ public class ProductDAOImp implements ProductDAO {
 
 	@PersistenceContext
 	private EntityManager entityManager;
+	JdbcTemplate jdbcTemplate;
 
+	public ProductDAOImp(DataSource dataSource) {
+		jdbcTemplate = new JdbcTemplate(dataSource);
+	}
 	@Override
 	@Transactional
 	public Integer getMaxProductId() {
@@ -49,7 +55,7 @@ public class ProductDAOImp implements ProductDAO {
 
 	@Override
 	@Transactional
-	public boolean createProduct(Product p) {
+	public int createProduct(Product p) {
 		int p_id = getMaxProductId();
 
 		p_id = p_id + 1;
@@ -68,9 +74,17 @@ public class ProductDAOImp implements ProductDAO {
 		productEntity.setDescription(p.getProd_desc());
 		productEntity.setReorderLevel(p.getReorderLevel());
 		entityManager.merge(productEntity);
+		return productEntity.getId();
 
-		return productEntity.getId() != null;
-
+	}
+	
+	@Override
+	public int addStock(int p_id) {
+		String query="insert into slam_productstock(prod_id,prod_price,prod_stock,prod_mrp) values(?,?,?,?)";	
+		int x=jdbcTemplate.update(query,p_id,0,0,0);
+		if(x>0) {
+			return 1;
+		}else return 0;
 	}
 
 	@Override

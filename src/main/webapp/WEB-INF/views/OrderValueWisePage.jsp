@@ -13,7 +13,8 @@ import="eStoreProduct.model.admin.output.OrderValueWiseShippingCharge,java.util.
 </head>
 <body>
 <% List<OrderValueWiseShippingCharge> chargeList = (List<OrderValueWiseShippingCharge>) request.getAttribute("chargeList"); %>
-<h1>Order Value Wise Shipping Charges</h1>
+
+<h3 style="text-align:center"><b>Order Value Wise Shipping Charges</b></h3><br/>
 <div class="add-button">
     <a href="#" onclick="addEntryForm()">Add Entry</a>
 </div>

@@ -18,7 +18,8 @@
 
 </head>
 <body>
-<h3 style="text-align:center"><b>Create New Category</b></h3>
+<br/>
+<h3 style="text-align:center"><b>Create New Category</b></h3><br/>
     <form action="createNewCategory" id="createNewCategory" method="post">
         
         <div class="container">

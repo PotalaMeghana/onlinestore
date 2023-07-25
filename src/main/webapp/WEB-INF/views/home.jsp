@@ -679,8 +679,8 @@ nav ul li:not(:last-child) {
   <nav>
     <ul>
       <li ><a href="loggedIn" style="font-weight: bold;">Home</a></li>
-      <li><a href="#" style="font-weight: bold;">About Us</a></li>
-      <li><a href="#" style="font-weight: bold;">Contact</a></li>
+<!--       <li><a href="#" style="font-weight: bold;">About Us</a></li>
+      <li><a href="#" style="font-weight: bold;">Contact</a></li> -->
       <li>
         <form action="/process-category" method="POST">
           <select name="catg" id="catg" title="Select a category"></select>

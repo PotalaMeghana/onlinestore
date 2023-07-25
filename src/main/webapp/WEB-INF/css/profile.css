@@ -1,6 +1,6 @@
+
 @charset "ISO-8859-1";
 
-    /* CSS styles */
     * {
         box-sizing: border-box;
     }
@@ -101,7 +101,6 @@
         cursor: pointer;
     }
 
-    /* CSS styles for the dashboard */
     body {
       font-family: Arial, sans-serif;
       margin: 0;
@@ -211,3 +210,4 @@
       margin: 0;
       flex-basis: 50%;
     }
+

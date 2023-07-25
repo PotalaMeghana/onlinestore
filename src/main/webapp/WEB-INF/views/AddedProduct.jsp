@@ -9,15 +9,16 @@
       <link rel="stylesheet" type="text/css" href="./css/AddedProduct.css">
 
  
-    <script src="./js/AddedProduct.js"></script>
- 	    <script src="./js/addNewProduct.js"></script>
- 	       <!--  <script src="./js/AddedProduct.js"></script> -->
+    <script src="./js/admin.js"></script>
+ 	    <script src="./js/admin.js"></script>
+ 	       <!--  <script src="./js/admin.js"></script> -->
+ 	       
 </head>
 <body>
   <div class="container">
     <h2>Product Added Successfully</h2>
     <p>Product added Succesfully .You can Continue Adding </p>
-    <a href="addNewProductInTheMasterEntry" id="back">Back to Adding</a>
+    <a onclick="backtoaddprod()" id="back">Back to Adding</a>
   </div>
 </body>
 </html>

@@ -9,8 +9,8 @@ import eStoreProduct.utility.ProductStockPrice;
 
 public interface ProductDAO {
 
-	public boolean createProduct(Product p);
-
+	public int createProduct(Product p);
+	public int addStock(int p_id);
 	public List<String> getAllProductCategories();
 
 	public List<ProductStockPrice> getProductsByCategory(Integer category);

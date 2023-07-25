@@ -16,6 +16,7 @@
 </head>
 <body>
 <h3 style="text-align:center"><b>Payments</b></h3>
+<br/>
 <div id="paymentcontent">
 <div class="container" >
     <div class="filter-form">

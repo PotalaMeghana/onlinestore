@@ -42,13 +42,20 @@ var page = pageElement.innerText;
 // Use the "page" variable in your JavaScript code
 console.log("page: " + page);
 
-$(document).on('click', '#red-button', function(event) {
-	    event.preventDefault();
-		var orderId = $(this).data('order-id'); 
-	    
-	    console.log('Clicked button with order ID:', orderId);
-	   processOrder(orderId,token,page);
-	   });
+
+var isProcessing = false;
+$(document).ready(function() {
+  // Bind the click event to the #red-button element
+  $(document).on('click', '#red-button', function(event) {
+    event.preventDefault();
+    var orderId = $(this).data('order-id');
+    console.log('Clicked button with order ID:', orderId);
+    if (!isProcessing) {
+    isProcessing = true; // Set the flag to true before making the AJAX call
+}
+    processOrder(orderId, token, page);
+  });
+});
 	 
 	 function processOrder(orderId,token,page){
 	    toastr.options = {
@@ -80,11 +87,17 @@ $(document).on('click', '#red-button', function(event) {
 		      success: function(response) {
 		     // //hideSpinner();
 		    	  $('#content').html(response);
+		    	  console.log('orders processing nowwww');
 		    	  toastr.success('Order has been processed');
+		    	  isProcessing = false; 
 		      },
-		      error: function(xhr, status, error) {
-		        console.log('AJAX Error: ' + error);
-		      }
+		       complete: function() {
+      isProcessing = false; // Reset the flag to false after the AJAX call is completed
+    },
+    error: function(xhr, status, error) {
+      console.log('AJAX Error: ' + error);
+      isProcessing = false; // Reset the flag to false in case of an error
+    }
 		    });
 	 	}
 	 

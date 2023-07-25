@@ -374,7 +374,19 @@ $(document).on('click', '#edit-button', function(event) {
 	
 	
 	
-	
+	function backtoaddprod(){
+		$.ajax({
+	        url: "addNewProductInTheMasterEntry",
+	        method: 'GET',
+	        success: function(response) {
+	          //  //hideSpinner();
+	            $('#content').html(response);
+	        },
+	        error: function(xhr, status, error) {
+	            console.log('AJAX Error: ' + error);
+	        }
+	    });
+	}
 	
 	
 	

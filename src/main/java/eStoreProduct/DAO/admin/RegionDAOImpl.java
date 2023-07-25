@@ -6,9 +6,11 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+import javax.sql.DataSource;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,13 +21,16 @@ import eStoreProduct.model.admin.output.RegionsOutput;
 
 @Component
 public class RegionDAOImpl implements RegionDAO {
-	
+	JdbcTemplate jdbcTemplate;
 	@PersistenceContext
 	private EntityManager entityManager;
 
     private static final Logger logger = LoggerFactory.getLogger(RegionDAOImpl.class);
-
-
+    public RegionDAOImpl(DataSource dataSource) {
+		jdbcTemplate = new JdbcTemplate(dataSource);
+	}
+    private String add_region = "INSERT INTO slam_regions (region_name, region_pin_from, region_pin_to, region_surcharge, region_pricewaiver)\r\n"
+			+ "VALUES\r\n" + "  (?, ?, ?, ?, ?);";
 	@Override
 	@Transactional
 	public List<RegionsOutput> getRegions() {
@@ -49,32 +54,38 @@ public class RegionDAOImpl implements RegionDAO {
         }
 	}
 
+	/*
+	 * @Override
+	 * 
+	 * @Transactional public void addRegion(Regions reg) {
+	 * logger.info("in RegionDAOImpl.addRegion() ");
+	 * 
+	 * RegionModel reg1=new RegionModel() ; reg1.setRegionId(reg.getRegionId());
+	 * reg1.setRegionName(reg.getRegionName());
+	 * reg1.setRegionPinFrom(reg.getRegionPinFrom());
+	 * reg1.setRegionPinTo(reg.getRegionPinTo());
+	 * reg1.setRegionPriceWaiver(reg.getRegionPriceWaiver());
+	 * reg1.setRegionSurcharge(reg.getRegionSurcharge()); entityManager.merge(reg1);
+	 * }
+	 */
 	@Override
-	@Transactional
 	public void addRegion(Regions reg) {
-								    logger.info("in RegionDAOImpl.addRegion() ");
 
-		RegionModel reg1=new RegionModel() ;
-		reg1.setRegionId(reg.getRegionId());
-		reg1.setRegionName(reg.getRegionName());
-		reg1.setRegionPinFrom(reg.getRegionPinFrom());
-		reg1.setRegionPinTo(reg.getRegionPinTo());
-		reg1.setRegionPriceWaiver(reg.getRegionPriceWaiver());
-		reg1.setRegionSurcharge(reg.getRegionSurcharge());
-        entityManager.merge(reg1);
-    }
-	
+		jdbcTemplate.update(add_region, reg.getRegionName(), reg.getRegionPinFrom(), reg.getRegionPinTo(),
+				reg.getRegionSurcharge(), reg.getRegionPriceWaiver());
+
+	}	
 	
 	@Override
 	@Transactional
 	public void removeRegion(int id) {
-										    logger.info("in RegionDAOImpl.removeRegion() ");
+		logger.info("in RegionDAOImpl.removeRegion() ");
 
 		RegionModel region = entityManager.find(RegionModel.class, id);
         if (region != null) {
 
-            entityManager.remove(region);
-																    logger.info("in RegionDAOImpl.removeRegion() removed region");
+        entityManager.remove(region);
+		logger.info("in RegionDAOImpl.removeRegion() removed region");
 
         }
     }

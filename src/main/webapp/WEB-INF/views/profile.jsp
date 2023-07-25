@@ -1,37 +1,43 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<%@ page import="eStoreProduct.model.customer.output.customerOutputModel" %>
+
     
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="ISO-8859-1">
 <title>Profile</title>
+    <link rel="stylesheet" type="text/css" href="./css/profile.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+       <script src="./js/profile.js"></script>
 
 </head>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
- <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
- <link rel="stylesheet" type="text/css" href="./css/profile.css">
-
  
-    <script src="./js/profile.js"></script>
 
 
 <body>
+
      <div class="sidebar">
          <div class="user-info">
               <img src="https://tse4.mm.bing.net/th?id=OIP.CUmXK7A3sWtCO2KP_yPztgAAAA&pid=Api&P=0&h=180" alt="User Icon">
                <h1>Hey! ${cust != null ? cust.custName : ""}</h1>
          </div>
          <ul>                
-                <li><a href="#">&#128142; Orders</a></li>      <li><button type="button" id="cart-button" class="btn btn-primary" style="background-color: navy; color: white; font-weight: bold;">Cart</button></li>
-             <li><button type="button" id="Wishlist-button" class="btn btn-primary" style="background-color: navy; color: white; font-weight: bold;">Wishlist</button></li>
-    <li><a href="logout">LogOut</a></li>
+                <li><a href="#" class="checkCustomerOrders">&#128142; Orders</a></li>    
+                
+    <li><a href="#" class="cart-button" id="cart-button">&#128722; Cart</a></li>
+             <li><a href="#" class="Wishlist-button" id="Wishlist-button">&#10084; WishList</a></li>
+             
+               <li><a href="logout">LogOut</a></li>
                 <li><a href="loggedIn">Home</a></li>
             </ul>
      </div>
      <div class="content" id="content"> 
        <div style="display: flex; justify-content: space-between; align-items: center;">
+             <h1>Welcome to the the store</h1>
        </div>
+       <div id="payment">
          <div id="edit">
             <h1>Customer Profile</h1>
             <table>
@@ -77,12 +83,12 @@
                     <td>${cust != null ? cust.custLastLoginDate : ""}</td>
                 </tr>
             </table> 
-            <button onclick="editprofile()">EDIT-PROFILE</button> 
+<button onclick="editprofile()">EDIT-PROFILE</button>
+        </div>
         </div>
   </div>
-  
-     
-    <script>
+<script>
+
 function editprofile() {
     var ele = document.getElementById("edit");
     ele.innerHTML = `

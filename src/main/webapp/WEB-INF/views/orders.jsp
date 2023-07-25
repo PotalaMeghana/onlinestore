@@ -8,6 +8,10 @@
     <title>Product Catalog</title>
             <link rel="stylesheet" type="text/css" href="./css/orders.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    
        <script src="./js/orders.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
  
@@ -28,22 +32,38 @@
                 <div class="dot"></div>
             </div>
             <div class="shipment-status-text">
-                <div class="status" style="text-align: center; vertical-align: middle;">Order Placed</div>
-                <div class="status" style="text-align: center; vertical-align: middle;">Order Processed</div>
-                <div class="status" style="text-align: center; vertical-align: middle;">Dispatched</div>
-                <div class="status" style="text-align: center; vertical-align: middle;">Out for Delivery</div>
-                <div class="status" style="text-align: center; vertical-align: middle;">Delivered</div>
+                <div class="status">Order Placed</div>
+                <div class="status">Order Processed</div>
+                <div class="status">Dispatched</div>
+                <div class="status">Out for Delivery</div>
+                <div class="status">Delivered</div>
             </div>
         </div>
     </div>
 
-    <div id="cancelOrderModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h3>Your order has been cancelled</h3>
-            <p>Insert any additional message or details here.</p>
+   <div class="notifications-container"  style="display:none;">
+  <div class="success">
+    <div class="flex">
+      <div class="flex-shrink-0">
+        
+        <svg class="succes-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+        </svg>
+      </div>
+      <div class="success-prompt-wrap">
+        <p class="success-prompt-heading">Order completed
+        </p><div class="success-prompt-prompt">
+          <p>You're happy now? Does this impulsive action is really going to satisfy you? Don't answer me, answer yourself. Anyway, your party-size pizza combo is on it's way.</p>
         </div>
+          <div class="success-button-container">
+            <button type="button" class="success-button-main">View status</button>
+            <button type="button" class="success-button-secondary">Dismiss</button>
+          </div>
+      </div>
     </div>
+  </div>
+</div>
+
     
   <div id="BillModal" class="modal">
   <div class="modal-content">

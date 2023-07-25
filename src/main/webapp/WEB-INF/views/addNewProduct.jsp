@@ -50,7 +50,8 @@
    
 </head>
 <body>
-<h3 style="text-align:center"><b>Create New Product</b></h3>
+<br/>
+<h3 style="text-align:center"><b>Create New Product</b></h3><br/>
     <form action="createNewProduct" id="createNewProducts" method="post">
         <div class="container mt-5">
             <div class="text-left mb-3">
